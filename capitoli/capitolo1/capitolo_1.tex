@@ -1,0 +1,64 @@
+\newpage
+\section{Cosa è l'analisi delle immagini satellitari}
+L'analisi delle immagini satellitari si riferisce al processo di estrazione di informazioni importanti dalle fotografie aeree scattate da satelliti orbitali.
+Questo campo combina la disciplina del telerilevamento con tecniche di apprendimento automatico (computer vision) per interpretare grandi quantità di dati visivi.
+\subsection{Dati di una fotografia}
+All'interno di una fotografia comune (anche quella scattata dai telefoni), è possibile ricavarne i colori RGB che stanno per Red (Rosso), Green(Verde) e Blue(Blu). attraverso la combinazione di questi 3 valori si può ricreare tutti i colori dello spettro visibile (osservabile con gli occhi). Tuttavia, nelle immagini satellitari, vi sono anche i canali infrarosso quali RedEdge, NIR e SWIR.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{capitoli/capitolo1/images/Spettro-luce-visibile-e-infrarosso.png}
+    %\caption{Descrizione dell'immagine}
+    \label{fig:etichetta}
+\end{figure}
+attraverso l'infrarosso si può comprendere caratteristiche invisibili all'occhio umano per esempio lo stato di salute della vegetazione o i livelli di umidità del suolo.
+\\Per lavorare con questi tipi di immagini è stato usato il software open source QGIS. Queste immagini hanno un formato \texttt{.tiff} e i file con cui è stato lavorato sono chiamati \texttt{...6band.tiff} dove, in questo caso, \texttt{6band} sta per $Red+Green+Blue+RedEdge+NIR+SWIR$.
+
+
+
+\begin{center}
+\begin{tikzpicture}[
+    every node/.style={draw, ellipse, minimum width=1.2cm, minimum height=0.7cm},
+    edge/.style={-}
+]
+
+% Titolo centrale
+\node[draw=none] (title) at (0,0) {\Huge \textbf{Ciao questo è il titolo.}};
+
+% --- Grafo sinistro ---
+\begin{scope}[shift={(-6,0)}]
+
+\node (A) at (0,0) {};
+\node (B) at (1,1) {};
+\node (C) at (1,-1) {};
+\node (D) at (2,0) {};
+\node (E) at (2,1.5) {};
+
+\draw (A) -- (B);
+\draw (A) -- (C);
+\draw (B) -- (D);
+\draw (C) -- (D);
+\draw (B) -- (E);
+
+\end{scope}
+
+% --- Grafo destro (specchiato) ---
+\begin{scope}[shift={(6,0)}, xscale=-1]
+
+\node (A) at (0,0) {};
+\node (B) at (1,1) {};
+\node (C) at (1,-1) {};
+\node (D) at (2,0) {};
+\node (E) at (2,1.5) {};
+
+\draw (A) -- (B);
+\draw (A) -- (C);
+\draw (B) -- (D);
+\draw (C) -- (D);
+\draw (B) -- (E);
+
+\end{scope}
+
+\end{tikzpicture}
+\end{center}
+
+
