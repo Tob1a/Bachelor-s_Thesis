@@ -5,3 +5,8 @@
 *.log
 *.fls
 *.fdb_latexmk
+*.bbl
+*.bbl-SAVE-ERROR
+*.bcf
+*.blg
+*.xml
