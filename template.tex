@@ -17,6 +17,9 @@
 \usepackage{titlesec} 	% http://tex.stackexchange.com/questions/11444/how-to-format-the-chapter-heading
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+\usepackage[backend=biber,style=authoryear]{biblatex}
+\addbibresource{capitoli/bibliography/bibliografia.bib}
 \usepackage{xcolor}
 \usepackage{geometry}
 \usepackage{layout}		% http://tex.stackexchange.com/questions/50258/margins-of-book-class
@@ -169,13 +172,18 @@ Lo scopo è fornire un algoritmo che attraverso un immagine mi identifichi il nu
 \setupfancy
 \thispagestyle{empty}
 In questo capitolo affronteremo le basi per comprendere successivamente appieno la struttura e i passaggi del lavoro.
-Il seguente capitolo è suddiviso in 2 parti. La prima in cui si spiega la tipologia delle immagini su cui si è lavorato e come è possibile riconoscere. La seconda sezione introdurrà invece i concetti fondamentali del machine learning, con focus specico sul machine learning simbolico che useremo nel progetto.
+Il seguente capitolo è suddiviso in 2 parti:
+\begin{itemize}
+  \item La prima in cui si spiega che cosa è l'analisi di immagini satellitari, il tipologia delle immagini su cui si è lavorato e come è possibile riconoscere. 
+  \item La seconda sezione introdurrà invece i concetti fondamentali del machine learning, con focus specifico sul machine learning simbolico che useremo nel progetto.
+\end{itemize} 
 
 
 
+\input{capitoli/capitolo1/capitolo_1}
 
-\include{capitoli/capitolo1/capitolo_1}
 
+\printbibliography
 
 
 \end{document} 

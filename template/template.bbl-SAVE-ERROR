@@ -1,0 +1,91 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nyt/global//global/global/global}
+    \entry{YAO2021107591}{article}{}{}
+      \name{author}{5}{}{%
+        {{un=0,uniquepart=base,hash=2f300d5a413d1413e64a8af7af27270e}{%
+           family={Yao},
+           familyi={Y\bibinitperiod},
+           given={Ling},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4c52dbeedf682e724e448d4f609de332}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Tang},
+           giveni={T\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=f602498b79955b2f47b474f843a6f453}{%
+           family={Qin},
+           familyi={Q\bibinitperiod},
+           given={Jun},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=7bf520d871ba2fca7691cb3f41614e6a}{%
+           family={Lu},
+           familyi={L\bibinitperiod},
+           given={Ning},
+           giveni={N\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=1dac5c499b9613617e07858a6c0a6986}{%
+           family={Zhou},
+           familyi={Z\bibinitperiod},
+           given={Chenghu},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{bb822fddb496ce961bdad30c3c5daa53}
+      \strng{fullhash}{3cf63ae80377feab698227c95310109c}
+      \strng{fullhashraw}{3cf63ae80377feab698227c95310109c}
+      \strng{bibnamehash}{bb822fddb496ce961bdad30c3c5daa53}
+      \strng{authorbibnamehash}{bb822fddb496ce961bdad30c3c5daa53}
+      \strng{authornamehash}{bb822fddb496ce961bdad30c3c5daa53}
+      \strng{authorfullhash}{3cf63ae80377feab698227c95310109c}
+      \strng{authorfullhashraw}{3cf63ae80377feab698227c95310109c}
+      \field{sortinit}{Y}
+      \field{sortinithash}{fd67ad5a9ef0f7456bdd9aab10fe1495}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Forest inventory at single-tree level is of great importance to modern forest management. The inventory contains two critical parameters about trees, including their numbers and spatial locations. Traditional methods to catalogue single trees are laborious, while deep neural networks enable to discover the multi-scale features hidden in images and thus make it possible to count trees with remote sensing imagery. In this study, four different tree counting networks, which were constructed by remodeling four different classical deep convolutional neural networks, were evaluated to determine their abilities to grasp the relationship between remote sensing images and tree locations for automatic tree counting end-to-end. To this end, a tree counting dataset was constructed with remote sensing images of 0.8-m spatial resolution in distinct regions. This dataset consisted of 24 GF-II images and the corresponding manually annotated locations of trees based on these images. Thereafter, a large number of experiments were conducted to examine the performance of these networks in regards to tree counting. The results demonstrated that all networks could achieve the competitive performance (above 0.91) in terms of the determination coefficient (R2) between the ground truth and the estimated values. The average accuracy of the Encoder-Decoder Network (one of the four networks) was greater than 91.58% and its R2 was equal to 0.97, achieving the best performance. It has been found that the deep learning is an efficient and effective means for tree counting task.}
+      \field{issn}{1470-160X}
+      \field{journaltitle}{Ecological Indicators}
+      \field{title}{Tree counting with high spatial-resolution satellite imagery based on deep neural networks}
+      \field{volume}{125}
+      \field{year}{2021}
+      \field{pages}{107591}
+      \range{pages}{1}
+      \verb{doi}
+      \verb https://doi.org/10.1016/j.ecolind.2021.107591
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/S1470160X21002569
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/S1470160X21002569
+      \endverb
+      \keyw{Forestry,Deep learning algorithms,Remote sensing,Density estimation,Tree counting}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

@@ -2,16 +2,121 @@
 \section{Cosa è l'analisi delle immagini satellitari}
 L'analisi delle immagini satellitari si riferisce al processo di estrazione di informazioni importanti dalle fotografie aeree scattate da satelliti orbitali.
 Questo campo combina la disciplina del telerilevamento con tecniche di apprendimento automatico (computer vision) per interpretare grandi quantità di dati visivi.
-\subsection{Dati di una fotografia}
+\subsection{Dati di una fotografia satellitare}
 All'interno di una fotografia comune (anche quella scattata dai telefoni), è possibile ricavarne i colori RGB che stanno per Red (Rosso), Green(Verde) e Blue(Blu). attraverso la combinazione di questi 3 valori si può ricreare tutti i colori dello spettro visibile (osservabile con gli occhi). Tuttavia, nelle immagini satellitari, vi sono anche i canali infrarosso quali RedEdge, NIR e SWIR.
+Di seguito si mostra una tabella di alcune frequenze d'onda della radiazione elettromagnetica. Ad ogni frequenza di questa appartiene una categoria.
+
+\begin{center}
+    
+
+\begin{tabular}{|c|c|}
+\hline
+Tipologia & Lunghezza d'onda \\
+\hline
+Viola & $\sim 380-450 nm$ \\
+Blu & $\sim 450-495 nm$ \\
+Verde & $\sim 495-570 nm$ \\ 
+Giallo & $\sim 570-590 nm$ \\
+Arancione & $\sim 590-620 nm$ \\
+Rosso & $\sim 620-705 nm$ \\
+RedEdge & $\sim 705-740 nm$ \\
+NIR & $\sim 760-900 nm$ \\
+SWIR & $\sim 1150-2350 nm$ \\
+
+\hline
+\end{tabular}
+
+\end{center}
+
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{capitoli/capitolo1/images/Spettro-luce-visibile-e-infrarosso.png}
     %\caption{Descrizione dell'immagine}
     \label{fig:etichetta}
 \end{figure}
-attraverso l'infrarosso si può comprendere caratteristiche invisibili all'occhio umano per esempio lo stato di salute della vegetazione o i livelli di umidità del suolo.
+Attraverso l'infrarosso si può comprendere caratteristiche invisibili all'occhio umano per esempio lo stato di salute della vegetazione o i livelli di umidità del suolo.
 \\Per lavorare con questi tipi di immagini è stato usato il software open source QGIS. Queste immagini hanno un formato \texttt{.tiff} e i file con cui è stato lavorato sono chiamati \texttt{...6band.tiff} dove, in questo caso, \texttt{6band} sta per $Red+Green+Blue+RedEdge+NIR+SWIR$.
+Un esempio di un immagine satellitare, con bbox (bounding box) disegnate per indicare la pianta, è riportata sotto:
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{capitoli/capitolo1/images/satellite.png}
+    \caption{Immagine satellitare con identificazione piante}
+    \label{fig:satellite con identificazione piante}
+\end{figure}
+\section{Introduzione al ML}
+Il machine learning è il sottoinsieme dell'intelligenza artificiale (AI) basato su algoritmi in grado di "apprendere" i modelli dei dati di addestramento e, successivamente, fare previsioni accurate sui nuovi dati. 
+Questa capacità di riconoscimento dei modelli consente ai modelli di machine learning di prendere decisioni o fare previsioni senza istruzioni esplicite e codificate.\\
+Si definisce dati di addestramento o training data una parte di dati di un dataset che verrà usata per allenare il modello. Il dataset
+viene denito come un insieme di dati organizzati $(X = x_1,..., x_n)$, dove a ogni elemento facente parte di esso, detto istanza o sample, rappresenta una misurazione
+di un certo fenomeno di interesse.\\
+Un esempio di un dataset potrebbe essere quello di una farmacia
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|l|l|c|c|}
+\hline
+\textbf{Esempio} & Farmaco & Categoria & Prezzo & Disponibilità \\
+\hline
+$x_1$ & Tachipirina 1000 mg & Analgesico & 7.50 & Disponibile \\
+$x_2$ & Aspirina 500 mg & Antinfiammatorio & 5.20 & Disponibile \\
+$x_3$ & Moment 200 mg & Antidolorifico & 6.80 & Esaurito \\
+$x_4$ & Augmentin 875 mg & Antibiotico & 12.40 & Disponibile \\
+$x_5$ & Enterogermina & Probiotico & 9.90 & Disponibile \\
+$x_6$ & Benagol Gola & Pastiglie gola & 4.30 & Disponibile \\
+$x_7$ & Voltaren Gel & Antinfiammatorio & 10.50 & Esaurito \\
+$x_8$ & Zyrtec 10 mg & Antistaminico & 8.70 & Disponibile \\
+\hline
+\end{tabular}
+\caption{Esempio di dataset relativo ai prodotti di una farmacia}
+\label{tab:dataset_farmacia}
+\end{table}
+
+\subsection{Tipologie di apprendimento}
+Possiamo distinguere i modelli in 3 principali tipi di apprendimento automatico:
+\begin{itemize}
+    \item \textbf{Apprendimento Supervisionato}:\\
+    Nel dataset oltre all'input $x_i$ viene associato (ad ogni input $x_i$)un output $y_i$. Si riporta una tabella esempio come la precendete. 
+    In questo caso $y_i$ indica se deve essere comprato oppure no il farmaco dal grossista.
+    \begin{table}[htbp]
+    \centering
+    \begin{tabular}{|c|l|l|c|c|}
+    \hline
+    \textbf{Input} & \textbf{Output}:Comprare?\\
+    \hline
+    $x_1$ & $y_1=SI$ \\
+    $x_2$ & $y_2=NO$ \\
+    $x_3$ & $y_3=NO$ \\
+    $x_4$ & $y_4=SI$ \\
+    $x_5$ & $Y_5=SI$ \\
+    $x_6$ & $y_6=NO$ \\
+    $x_7$ & $y_7=SI$ \\
+    $x_8$ & $y_8=SI$ \\
+    \hline
+    \end{tabular}
+    \caption{Esempio di coppie di un dataset}
+    \label{tab:coppie_dataset_farmacia}
+    \end{table}
+    Il modello osserva coppie di input-output ($(x_1,y_1),...,(x_n,y_n)$) e apprende una funzione (chiamata $h(x)$) che fa corrispondere l'input ($x_i$) all'output ($y_i$). Per esempio, gli input potrebbero essere
+    immagini ottenute da una fotocamera, ognuna accompagnata da un output che indica “bus”
+    o “pedone” e così via. Un output come questo è chiamato etichetta. Nel nostro esempio l'output è se il farmacista dovrebbe comprarlo dal grossista oppure no, mentre le etichette sono Farmaco, Categoria, Prezzo e Disponibilità
+    Una funzione è dato un input $x$ si ricava il risultato. Per esempio la funzione
+    \begin{align}
+        h(x_i)&=y_i\\
+        h(x_i)&=2x_i+3\\
+        h(3)&=2\cdot 3+3=9
+    \end{align}
+    Tuttavia, nel machine learning la forma della funzione ($2x+3$) non viene fissata in anticipo, 
+    ma questa è calcolata automaticamente a partire dai dati di addestramento.
+    \item \textbf{Apprendimento Non Supervisionato}:
+    ’agente apprende pattern nell’input senza alcun
+feedback esplicito. L’attività di apprendimento non supervisionato più comune è il clu-
+stering: individuare cluster potenzialmente utili di esempi di input. Per esempio, un siste-
+ma di visione artiﬁciale, osservando milioni di immagini prese da Internet, è in grado di
+identiﬁcare un ampio cluster di immagini simili che una persona di lingua italiana chia-
+merebbe “gatti”.
+    \item \textbf{Apprendimento Rinforzato}
+\end{itemize}
+
+
 
 
 
@@ -60,5 +165,7 @@ attraverso l'infrarosso si può comprendere caratteristiche invisibili all'occhi
 
 \end{tikzpicture}
 \end{center}
+\section{Metodi noti per la risoluzione del problema}
+Alcune articoli come \cite{YAO2021107591} hanno usato una rete neurale (di tipologia CNN) per trovare una mappa di densità degli alberi dall'immagine. Il numero totale degli alberi si ottiene integrando tale mappa.
 
 
