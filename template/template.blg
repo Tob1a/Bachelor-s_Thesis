@@ -1,15 +1,15 @@
 [0] Config.pm:328> INFO - This is Biber 2.21
 [0] Config.pm:331> INFO - Logfile is 'template/template.blg'
-[147] biber:342> INFO - === Mon May 11, 2026, 19:01:21
-[178] Biber.pm:421> INFO - Reading 'template/template.bcf'
-[318] Biber.pm:1002> INFO - Found 1 citekeys in bib section 0
-[353] Biber.pm:4487> INFO - Processing section 0
-[371] Biber.pm:4678> INFO - Looking for bibtex file 'capitoli/bibliography/bibliografia.bib' for section 0
-[372] bibtex.pm:1713> INFO - LaTeX decoding ...
-[379] bibtex.pm:1519> INFO - Found BibTeX data source 'capitoli/bibliography/bibliografia.bib'
-[468] UCollate.pm:68> INFO - Overriding locale 'it-IT' defaults 'variable = shifted' with 'variable = non-ignorable'
-[469] UCollate.pm:68> INFO - Overriding locale 'it-IT' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[469] Biber.pm:4307> INFO - Sorting list 'nyt/global//global/global/global' of type 'entry' with template 'nyt' and locale 'it-IT'
-[469] Biber.pm:4313> INFO - No sort tailoring available for locale 'it-IT'
-[482] bbl.pm:676> INFO - Writing 'template/template.bbl' with encoding 'UTF-8'
-[485] bbl.pm:779> INFO - Output to template/template.bbl
+[188] biber:342> INFO - === Tue May 12, 2026, 04:04:44
+[267] Biber.pm:421> INFO - Reading 'template/template.bcf'
+[403] Biber.pm:1002> INFO - Found 1 citekeys in bib section 0
+[439] Biber.pm:4487> INFO - Processing section 0
+[508] Biber.pm:4678> INFO - Looking for bibtex file 'capitoli/bibliography/bibliografia.bib' for section 0
+[509] bibtex.pm:1713> INFO - LaTeX decoding ...
+[515] bibtex.pm:1519> INFO - Found BibTeX data source 'capitoli/bibliography/bibliografia.bib'
+[599] UCollate.pm:68> INFO - Overriding locale 'it-IT' defaults 'variable = shifted' with 'variable = non-ignorable'
+[600] UCollate.pm:68> INFO - Overriding locale 'it-IT' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[600] Biber.pm:4307> INFO - Sorting list 'nyt/global//global/global/global' of type 'entry' with template 'nyt' and locale 'it-IT'
+[600] Biber.pm:4313> INFO - No sort tailoring available for locale 'it-IT'
+[614] bbl.pm:676> INFO - Writing 'template/template.bbl' with encoding 'UTF-8'
+[616] bbl.pm:779> INFO - Output to template/template.bbl

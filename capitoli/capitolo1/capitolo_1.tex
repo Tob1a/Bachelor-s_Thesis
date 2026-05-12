@@ -43,7 +43,7 @@ Un esempio di un immagine satellitare, con bbox (bounding box) disegnate per ind
     \caption{Immagine satellitare con identificazione piante}
     \label{fig:satellite con identificazione piante}
 \end{figure}
-\section{Introduzione al ML}
+\section{Introduzione al Machine Learning}
 Il machine learning è il sottoinsieme dell'intelligenza artificiale (AI) basato su algoritmi in grado di "apprendere" i modelli dei dati di addestramento e, successivamente, fare previsioni accurate sui nuovi dati. 
 Questa capacità di riconoscimento dei modelli consente ai modelli di machine learning di prendere decisioni o fare previsioni senza istruzioni esplicite e codificate.\\
 Si definisce dati di addestramento o training data una parte di dati di un dataset che verrà usata per allenare il modello. Il dataset
@@ -95,27 +95,40 @@ Possiamo distinguere i modelli in 3 principali tipi di apprendimento automatico:
     \caption{Esempio di coppie di un dataset}
     \label{tab:coppie_dataset_farmacia}
     \end{table}
-    Il modello osserva coppie di input-output ($(x_1,y_1),...,(x_n,y_n)$) e apprende una funzione (chiamata $h(x)$) che fa corrispondere l'input ($x_i$) all'output ($y_i$). Per esempio, gli input potrebbero essere
+    Il modello osserva coppie di input-output ($(x_1,y_1),...,(x_n,y_n)$) e apprende una funzione (chiamata $\hat{h}$) che dato l'input ($x_i$), il valore della funzione $\hat{h}(x)$ cerca di farlo avvicinare all'output corretto ($y_i$). Per esempio, gli input potrebbero essere
     immagini ottenute da una fotocamera, ognuna accompagnata da un output che indica “bus”
     o “pedone” e così via. Un output come questo è chiamato etichetta. Nel nostro esempio l'output è se il farmacista dovrebbe comprarlo dal grossista oppure no, mentre le etichette sono Farmaco, Categoria, Prezzo e Disponibilità
-    Una funzione è dato un input $x$ si ricava il risultato. Per esempio la funzione
+    Una funzione è dato un input $x_i$ si ricava il risultato. Per esempio la funzione
     \begin{align}
         h(x_i)&=y_i\\
         h(x_i)&=2x_i+3\\
         h(3)&=2\cdot 3+3=9
     \end{align}
-    Tuttavia, nel machine learning la forma della funzione ($2x+3$) non viene fissata in anticipo, 
-    ma questa è calcolata automaticamente a partire dai dati di addestramento.
-    \item \textbf{Apprendimento Non Supervisionato}:
-    ’agente apprende pattern nell’input senza alcun
-feedback esplicito. L’attività di apprendimento non supervisionato più comune è il clu-
-stering: individuare cluster potenzialmente utili di esempi di input. Per esempio, un siste-
-ma di visione artiﬁciale, osservando milioni di immagini prese da Internet, è in grado di
-identiﬁcare un ampio cluster di immagini simili che una persona di lingua italiana chia-
-merebbe “gatti”.
-    \item \textbf{Apprendimento Rinforzato}
+    Tuttavia, nel machine learning la forma della funzione ($2x+3$) non viene fissata in anticipo: non la conosciamo. 
+    Questa è calcolata automaticamente a partire dai dati di addestramento.
+    \item \textbf{Apprendimento Non Supervisionato}:\\
+    Il modello apprende i pattern dall'input ($x_i$) senza alcun
+    feedback esplicito ($y_i$). L'attività di apprendimento non supervisionato più comune è il clustering: 
+    individuare cluster potenzialmente utili di esempi di input. Per esempio, un sistema
+    di visione artiﬁciale, osservando milioni di immagini prese da Internet, è in grado di
+    identiﬁcare un ampio cluster di immagini simili che una persona chiamerebbe gatti.
+    Per esempio nell'immagine sottostante i puntini in rosso sono i gatti, in verde le piante e in blu i pesci. 
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.5\textwidth]{capitoli/capitolo1/images/SLINK-Gaussian-data.png}
+        \caption{Rappresentazione di un cluster di un dataset}
+        \label{fig:cluster}
+    \end{figure}
+    \item \textbf{Apprendimento Rinforzato}:\\
+    L'apprendimento avviene grazie ad una serie di rinforzi: il modello impara da risposte positive o negative sul risultato. Ad esempio, dopo una partita a
+    un gioco scelto, possono essere assegnati premi per la vittoria o punizioni per la sconfitta in base
+    a come ha giocato il modello. Il gioco viene ripetuto e le azioni e scelte prese vengono
+    progressivamente alterate dal modello in modo che questo ricerchi una ricompensa.
 \end{itemize}
 
+In questa tesi si andrà a lavorare con la tipologia di apprendimento supervisionato.
+
+\subsection{Apprendimento Simbolico e Non Simbolico}
 
 
 
