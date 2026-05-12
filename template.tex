@@ -66,10 +66,10 @@
     pdffitwindow=false,     % window fit to page when opened
     pdfstartview={FitH},    % fits the width of the page to the window
     pdftitle={Analisi e strutturazione di dati storici medici densitometrici per fini statistici},    % title
-    pdfauthor={Bombonati Stefano},     % author
+    pdfauthor={Sacchetto Tobia},     % author
     pdfsubject={Analisi e strutturazione di dati},   % subject of the document
-    pdfcreator={Bombonati Stefano},   % creator of the document
-    pdfproducer={Bombonati Stefano}, % producer of the document
+    pdfcreator={Sacchetto Tobia},   % creator of the document
+    pdfproducer={Sacchetto Tobia}, % producer of the document
     pdfkeywords={Analisi e strutturazione di dati medici densitometrici}, % list of keywords
     linktocpage=false,		% number hyperref'd =true, false otherwise
     pdfnewwindow=true,      % links in new PDF window
@@ -119,26 +119,75 @@
 	\huge \textbf{\textsc{Università degli Studi di Ferrara}}
 	\Large \textsc{Corso di Laurea in Informatica}
 	
-	\vspace*{1.5cm}
-	\hrule width \hsize \kern 1mm \hrule width \hsize height 2pt
-	\vspace*{10mm}
-	\Huge \emph{\textbf{Il mio titolo della tesi in italiano}}
-	\vspace*{10mm}
-	\hrule width \hsize height 2pt
-	\vspace*{1mm}
-	\hrule width \hsize \kern 1mm
-	
+	% \vspace*{1.5cm}
+	% \hrule width \hsize \kern 1mm \hrule width \hsize height 2pt %disegna 2 righe
+	% \vspace*{10mm}
+	% \Huge \emph{\textbf{Il mio titolo della tesi in italiano}}
+	% \vspace*{10mm}
+	% \hrule width \hsize height 2pt
+	% \vspace*{1mm}
+	% \hrule width \hsize \kern 1mm
+
+  \vspace*{1.5cm}
+  \begin{center}
+  
+\begin{tabular}{p{0.2\textwidth} p{0.5\textwidth} p{0.2\textwidth}}
+%\centering
+  \begin{tikzpicture}[
+    baseline=(current bounding box.center),
+    every node/.style={draw, ellipse, minimum width=1.5cm, minimum height=0.9cm, line width=2.5pt},
+    edge/.style={-, line width=2.5pt}
+    ]
+    \node (A) at (0,0) {};
+    \node (B) at (1,1) {};
+    \node (C) at (1,-1) {};
+    \node (D) at (2,0) {};
+    \node (E) at (2,2) {};
+
+    \draw[edge] (A) -- (B);
+    %\draw[edge] (A) -- (C);
+    \draw[edge] (B) -- (D);
+    \draw[edge] (C) -- (D);
+    \draw[edge] (B) -- (E);
+  \end{tikzpicture}
+
+
+&
+\centering
+\Huge \emph{\textbf{Il mio titolo della tesi in italiano}}
+&
+\centering
+\begin{tikzpicture}[xscale=-1,
+    baseline=(current bounding box.center),
+    every node/.style={draw, ellipse, minimum width=1.5cm, minimum height=0.9cm, line width=2.5pt},
+    edge/.style={-, line width=2.5pt}
+    ]
+    \node (A) at (0,0) {};
+    \node (B) at (1,1) {};
+    \node (C) at (1,-1) {};
+    \node (D) at (2,0) {};
+    \node (E) at (2,2) {};
+
+    \draw[edge] (A) -- (B);
+    %\draw[edge] (A) -- (C);
+    \draw[edge] (B) -- (D);
+    \draw[edge] (C) -- (D);
+    \draw[edge] (B) -- (E);
+  \end{tikzpicture}
+\end{tabular}
+\end{center}
+
 	\vspace*{15mm}
 	\begin{minipage}{0.45\textwidth}
 		\begin{flushleft} \Large
 			\emph{Relatore:}\\
-			\Large \textbf{Prof. Nome \textsc{Cognome}}
+			\Large \textbf{Prof. Guido \textsc{Sciavicco}}
 		\end{flushleft}
 	\end{minipage}
 	\begin{minipage}{0.45\textwidth}
 		\begin{flushright} \Large
 			\emph{Laureando:} \\
-			\Large \textbf{Nome \textsc{Cognome}}
+			\Large \textbf{Tobia \textsc{Sacchetto}}
 		\end{flushright}
 	\end{minipage}
 	

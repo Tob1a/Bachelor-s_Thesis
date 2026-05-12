@@ -19,6 +19,90 @@
 
 \refsection{0}
   \datalist[entry]{nyt/global//global/global/global}
+    \entry{FU2017106}{article}{}{}
+      \name{author}{8}{}{%
+        {{un=0,uniquepart=base,hash=f571bb0fce43f7ee3a75225044d4171c}{%
+           family={Fu},
+           familyi={F\bibinitperiod},
+           given={Bolin},
+           giveni={B\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=5c238105333422e216a6e2060e3ceb79}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Yeqiao},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d07ed487f0ab6b5d6a48305e4ee6a59d}{%
+           family={Campbell},
+           familyi={C\bibinitperiod},
+           given={Anthony},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=96641b60b95eb223b3df53d9263f63ff}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Ying},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a4da8601d3c3f032fa3a6381580a7d71}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Bai},
+           giveni={B\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=8f648a17244743afdcac129295b2fcd7}{%
+           family={Yin},
+           familyi={Y\bibinitperiod},
+           given={Shubai},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a0e9aba9ab824df8c47f46fc297cd095}{%
+           family={Xing},
+           familyi={X\bibinitperiod},
+           given={Zefeng},
+           giveni={Z\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ad5effc924a93afbcb1bc5f5a1601569}{%
+           family={Jin},
+           familyi={J\bibinitperiod},
+           given={Xiaomin},
+           giveni={X\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{ff68c7b480f98f3b12ae6b57fec46f41}
+      \strng{fullhash}{ee723093e8cb718cf5ceb9a8104096d7}
+      \strng{fullhashraw}{ee723093e8cb718cf5ceb9a8104096d7}
+      \strng{bibnamehash}{ff68c7b480f98f3b12ae6b57fec46f41}
+      \strng{authorbibnamehash}{ff68c7b480f98f3b12ae6b57fec46f41}
+      \strng{authornamehash}{ff68c7b480f98f3b12ae6b57fec46f41}
+      \strng{authorfullhash}{ee723093e8cb718cf5ceb9a8104096d7}
+      \strng{authorfullhashraw}{ee723093e8cb718cf5ceb9a8104096d7}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Vegetation is an integral component of wetland ecosystems. Mapping distribution, quality and quantity of wetland vegetation is important for wetland protection, management and restoration. This study evaluated the performance of object-based and pixel-based Random Forest (RF) algorithms for mapping wetland vegetation using a new Chinese high spatial resolution Gaofen-1 (GF-1) satellite image, L-band PALSAR and C-band Radarsat-2 data. This research utilized the wavelet-principal component analysis (PCA) image fusion technique to integrate multispectral GF-1 and synthetic aperture radar (SAR) images. Comparison of six classification scenarios indicates that the use of additional multi-source datasets achieved higher classification accuracy. The specific conclusions of this study include the followings:(1) the classification of GF-1, Radarsat-2 and PALSAR images found statistically significant difference between pixel-based and object-based methods; (2) object-based and pixel-based RF classifications both achieved greater 80% overall accuracy for both GF-1 and GF-1 fused with SAR images; (3) object-based classifications improved overall accuracy between 3%-10% in all scenarios when compared to pixel-based classifications; (4) object-based classifications produced by the integration of GF-1, Radarsat-2 and PALSAR images outperformed any of the lone datasets, and achieved 89.64% overall accuracy.}
+      \field{issn}{1470-160X}
+      \field{journaltitle}{Ecological Indicators}
+      \field{title}{Comparison of object-based and pixel-based Random Forest algorithm for wetland vegetation mapping using high spatial resolution GF-1 and SAR data}
+      \field{volume}{73}
+      \field{year}{2017}
+      \field{pages}{105\bibrangedash 117}
+      \range{pages}{13}
+      \verb{doi}
+      \verb https://doi.org/10.1016/j.ecolind.2016.09.029
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/S1470160X1630560X
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/S1470160X1630560X
+      \endverb
+      \keyw{Wetland vegetation mapping,Image fusion,Random Forest classifier,GF-1,SAR,Northeast China}
+    \endentry
     \entry{YAO2021107591}{article}{}{}
       \name{author}{5}{}{%
         {{un=0,uniquepart=base,hash=2f300d5a413d1413e64a8af7af27270e}{%

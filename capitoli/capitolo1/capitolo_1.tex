@@ -3,46 +3,53 @@
 L'analisi delle immagini satellitari si riferisce al processo di estrazione di informazioni importanti dalle fotografie aeree scattate da satelliti orbitali.
 Questo campo combina la disciplina del telerilevamento con tecniche di apprendimento automatico (computer vision) per interpretare grandi quantità di dati visivi.
 \subsection{Dati di una fotografia satellitare}
-All'interno di una fotografia comune (anche quella scattata dai telefoni), è possibile ricavarne i colori RGB che stanno per Red (Rosso), Green(Verde) e Blue(Blu). attraverso la combinazione di questi 3 valori si può ricreare tutti i colori dello spettro visibile (osservabile con gli occhi). Tuttavia, nelle immagini satellitari, vi sono anche i canali infrarosso quali RedEdge, NIR e SWIR.
-Di seguito si mostra una tabella di alcune frequenze d'onda della radiazione elettromagnetica. Ad ogni frequenza di questa appartiene una categoria.
-
-\begin{center}
+All'interno di una fotografia comune (anche quella scattata dai telefoni), è possibile ricavarne i colori RGB che stanno per Red (Rosso), 
+Green(Verde) e Blue(Blu). attraverso la combinazione di questi 3 valori si può ricreare tutti i colori dello spettro 
+visibile (osservabile con gli occhi). Tuttavia, nelle immagini satellitari, vi sono anche i canali infrarosso quali 
+RedEdge, NIR e SWIR.
+Si mostra una tabella \ref{tab:tabella infrarosso} di alcune frequenze d'onda della radiazione 
+elettromagnetica. Ad ogni frequenza di questa appartiene una categoria. Si mostra anche un immagine \ref{fig:spettro infrarosso} che mostra lo spettro delle luce visibile e dell'infrarosso.
+\begin{table}[htbp]
     
+    \begin{center}
+    \begin{tabular}{|c|c|}
+    \hline
+    Tipologia & Lunghezza d'onda \\
+    \hline
+    Viola & $\sim 380-450 nm$ \\
+    Blu & $\sim 450-495 nm$ \\
+    Verde & $\sim 495-570 nm$ \\ 
+    Giallo & $\sim 570-590 nm$ \\
+    Arancione & $\sim 590-620 nm$ \\
+    Rosso & $\sim 620-705 nm$ \\
+    RedEdge & $\sim 705-740 nm$ \\
+    NIR & $\sim 760-900 nm$ \\
+    SWIR & $\sim 1150-2350 nm$ \\
 
-\begin{tabular}{|c|c|}
-\hline
-Tipologia & Lunghezza d'onda \\
-\hline
-Viola & $\sim 380-450 nm$ \\
-Blu & $\sim 450-495 nm$ \\
-Verde & $\sim 495-570 nm$ \\ 
-Giallo & $\sim 570-590 nm$ \\
-Arancione & $\sim 590-620 nm$ \\
-Rosso & $\sim 620-705 nm$ \\
-RedEdge & $\sim 705-740 nm$ \\
-NIR & $\sim 760-900 nm$ \\
-SWIR & $\sim 1150-2350 nm$ \\
-
-\hline
-\end{tabular}
-
-\end{center}
+    \hline
+    \end{tabular}
+    \caption{tabella infrarosso}
+    \label{tab:tabella infrarosso}
+    \end{center}
+\end{table}
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{capitoli/capitolo1/images/Spettro-luce-visibile-e-infrarosso.png}
-    %\caption{Descrizione dell'immagine}
-    \label{fig:etichetta}
+    \caption{spettro della radiazione visibile e dell'infrarosso}
+    \label{fig:spettro infrarosso}
 \end{figure}
 Attraverso l'infrarosso si può comprendere caratteristiche invisibili all'occhio umano per esempio lo stato di salute della vegetazione o i livelli di umidità del suolo.
 \\Per lavorare con questi tipi di immagini è stato usato il software open source QGIS. Queste immagini hanno un formato \texttt{.tiff} e i file con cui è stato lavorato sono chiamati \texttt{...6band.tiff} dove, in questo caso, \texttt{6band} sta per $Red+Green+Blue+RedEdge+NIR+SWIR$.
-Un esempio di un immagine satellitare, con bbox (bounding box) disegnate per indicare la pianta, è riportata sotto:
+Un esempio di un immagine satellitare, con bbox (bounding box) disegnate per indicare la pianta, è riportata \ref{fig:satellite con identificazione piante}.
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{capitoli/capitolo1/images/satellite.png}
     \caption{Immagine satellitare con identificazione piante}
     \label{fig:satellite con identificazione piante}
 \end{figure}
+Un'immagine è un insieme di pixel con coordinate $(x,y)$ dove $x$ mi indica la posizione del pixel nell'immagine sull'asse delle ordinate (asse orizzontale) e $y$ sull'asse delle ascisse (asse verticale).
+Ogni pixel, oltre alle coordinate di riferimento, ha un valore che mi indica l'intensità del rosso, uno del verde, uno del blu, uno del RedEdge, uno del NIR e uno del canale SWIR.
 \section{Introduzione al Machine Learning}
 Il machine learning è il sottoinsieme dell'intelligenza artificiale (AI) basato su algoritmi in grado di "apprendere" i modelli dei dati di addestramento e, successivamente, fare previsioni accurate sui nuovi dati. 
 Questa capacità di riconoscimento dei modelli consente ai modelli di machine learning di prendere decisioni o fare previsioni senza istruzioni esplicite e codificate.\\
@@ -129,56 +136,60 @@ Possiamo distinguere i modelli in 3 principali tipi di apprendimento automatico:
 In questa tesi si andrà a lavorare con la tipologia di apprendimento supervisionato.
 
 \subsection{Apprendimento Simbolico e Non Simbolico}
+Il machine learning simbolico è un approccio all'apprendimento automatico che si basa sulla rappresentazione esplicita della conoscenza, trammite simboli (cioè segni che indicano entità, categorie e relazioni che vogliamo rappresentare 
+(ad esempio \texttt{gatto}, \texttt{essere vivente}, \texttt{appartiene a})), regole logiche espresse tipicamente come implicazioni (se succede questo, allora...) e inferenza (ragionamento deduttivo).\\
+Un esempio di ragionamento deduttivo è il seguente:
+a partire da regole generali e da fatti specifici, una macchina deduce 
+una conclusione logicamente necessaria (se è vero che \texttt{tutti i mammiferi allattano} 
+e che \texttt{Fido è un mammifero}, allora deduco che \texttt{Fido allatta}).\\
+L'apprendimento simbolico non necessita di grandi quantità di dati per l'addestramento, ha un'alta trasparenza nelle decisioni (perché ogni ragionamento si può comprendere attraverso regole logiche) e ha limiti nella gestione di dati rumorosi o ambigui.\\
+L'apprendimento simbolico si contrappone all'apprendimento statistico (ad esempio le reti neurali), 
+basato su correlazioni numeriche estratte dai dati. Quest'ultimo ha bisogno di grandi quantità di dati nell'apprendimento, sono delle blackbox (dato un input si ha un output, ma non si conosce il ragionamento dietro) e è buono nella gestione di dati rumorosi o ambigui.
+
+\subsection{Bontà del modello}
+Per valutare se il modello è buono per il problema si neccessità di conoscere i seguenti parametri.
+\begin{itemize}
+    \item F1-macro     
+    \item ROC-AUC    
+    \item Prec-macro    
+    \item Rec-macro
+\end{itemize}
+\begin{itemize}
+    \item True Positive ($TP_i$): pixel correttamente predetti come positivi;
+    \item True Negative ($TN_i$): pixel correttamente predetti come negativi;
+    \item False Positive ($FP_i$) - pixel negativi ma predetti positivi;
+    \item False Negative ($FN_i$) - pixel positivi ma predetti negativi.
+\end{itemize}
+Da qui possiamo calcolare:\\
+\begin{itemize}
+    \item $Precision_i$:proporzione dei pixel classicati come piante e che rappresentano
+effettivamente delle piante.
+\[
+Precision_i=\frac{TP_i}{TP_i+FP_i}
+\]
+    \item $Recall_i$: calcola la percentuale di obiettivi da riconoscere che sono stati
+riconosciuti.
+\[
+Recall_i=\frac{TP_i}{TP_i + FN_i}
+\]
+    \item $F1_i$:serve per valutare la qualità di un modello
+    \[
+    F1_i=2\cdot\frac{Precision_i\cdot Recall_i}{Precision_i+Recall_i}
+    \]
+\end{itemize}
+\begin{align}
+    Prec-macro&=\frac{1}{N}\sum^N_{i=1}Precision_i\\
+    Rec-macro&=\frac{1}{N}\sum^N_{i=1}Recall_i\\
+    F1-macro&=\frac{1}{N}\sum^N_{i=1}F1_i
+\end{align}
 
 
 
+Ulteriori approfondimenti sul Machine Learning si posso affrontare nel libro \cite{russell2010artificial} o nella sua versione in italiano \cite{Russell2022-re}
 
-\begin{center}
-\begin{tikzpicture}[
-    every node/.style={draw, ellipse, minimum width=1.2cm, minimum height=0.7cm},
-    edge/.style={-}
-]
 
-% Titolo centrale
-\node[draw=none] (title) at (0,0) {\Huge \textbf{Ciao questo è il titolo.}};
-
-% --- Grafo sinistro ---
-\begin{scope}[shift={(-6,0)}]
-
-\node (A) at (0,0) {};
-\node (B) at (1,1) {};
-\node (C) at (1,-1) {};
-\node (D) at (2,0) {};
-\node (E) at (2,1.5) {};
-
-\draw (A) -- (B);
-\draw (A) -- (C);
-\draw (B) -- (D);
-\draw (C) -- (D);
-\draw (B) -- (E);
-
-\end{scope}
-
-% --- Grafo destro (specchiato) ---
-\begin{scope}[shift={(6,0)}, xscale=-1]
-
-\node (A) at (0,0) {};
-\node (B) at (1,1) {};
-\node (C) at (1,-1) {};
-\node (D) at (2,0) {};
-\node (E) at (2,1.5) {};
-
-\draw (A) -- (B);
-\draw (A) -- (C);
-\draw (B) -- (D);
-\draw (C) -- (D);
-\draw (B) -- (E);
-
-\end{scope}
-
-\end{tikzpicture}
-\end{center}
 \section{Metodi noti per la risoluzione del problema}
 Alcune articoli come \cite{YAO2021107591} hanno usato una rete neurale (di tipologia CNN) per trovare una mappa di densità degli alberi dall'immagine. Il numero totale degli alberi si ottiene integrando tale mappa.
+Altri articoli come \cite{FU2017106} usano una Random Forest pixel per pixel per mappare la vegetazione delle zone umide.
 
 
