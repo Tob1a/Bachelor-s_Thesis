@@ -3,12 +3,16 @@
 \usepackage[english,italian]{babel}
 \usepackage{xspace}
 \usepackage{tikz}
-\usetikzlibrary{shapes.geometric}
+\usepackage{pgfplots}%pacchetto di tikz per regressioni lineari
+\usepackage{pgfplotstable} %anche questo
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{shapes.geometric} %pacchetto per forme geometriche per gli insiemi
 \usepackage[newitem,newenum,neverdecrease]{paralist}
 \usepackage{amsmath,amssymb,amsfonts,mathrsfs,latexsym,stmaryrd}
 \usepackage{mathtools}
 \usepackage{amsthm}
 \usepackage{ifpdf}
+\usepackage{float}
 \usepackage{cases}
 \usepackage{ragged2e} 	% https://tex.stackexchange.com/questions/89680/how-can-one-set-full-justification-within-left-justified-raggedright-text
 \usepackage{breakcites} % https://tex.stackexchange.com/questions/2773/how-do-i-make-latex-push-long-citations-to-a-new-line
@@ -18,6 +22,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{csquotes}
+\usepackage{array}
 \usepackage[backend=biber,style=authoryear]{biblatex}
 \addbibresource{capitoli/bibliography/bibliografia.bib}
 \usepackage{xcolor}
@@ -65,12 +70,12 @@
     pdfmenubar=true,        % show Acrobat’s menu?
     pdffitwindow=false,     % window fit to page when opened
     pdfstartview={FitH},    % fits the width of the page to the window
-    pdftitle={Analisi e strutturazione di dati storici medici densitometrici per fini statistici},    % title
+    pdftitle={Random Forest su immagini satellitari per il riconoscimento e il conteggio di piante},    % title
     pdfauthor={Sacchetto Tobia},     % author
-    pdfsubject={Analisi e strutturazione di dati},   % subject of the document
+    pdfsubject={Analisi per il riconoscimento di piante},   % subject of the document
     pdfcreator={Sacchetto Tobia},   % creator of the document
     pdfproducer={Sacchetto Tobia}, % producer of the document
-    pdfkeywords={Analisi e strutturazione di dati medici densitometrici}, % list of keywords
+    pdfkeywords={Random Forest su immagini satellitari per il riconoscimento e il conteggio di piante}, % list of keywords
     linktocpage=false,		% number hyperref'd =true, false otherwise
     pdfnewwindow=true,      % links in new PDF window
     colorlinks=true,       % false: boxed links; true: colored links
@@ -90,7 +95,7 @@
   \pagestyle{empty}
   #1
   \cleardoublepage}
-\makeatletter
+\makeatother
 
 % base line strech (default 1.0) -- interlinea
 \renewcommand{\baselinestretch}{1.2}
@@ -128,21 +133,28 @@
 	% \vspace*{1mm}
 	% \hrule width \hsize \kern 1mm
 
-  \vspace*{1.5cm}
+  %\vspace*{1.5cm}
   \begin{center}
-  
-\begin{tabular}{p{0.2\textwidth} p{0.5\textwidth} p{0.2\textwidth}}
-%\centering
+
+\begin{tabular}{
+    >{\centering\arraybackslash}m{0.25\textwidth}
+    >{\centering\arraybackslash}m{0.4\textwidth}
+    >{\centering\arraybackslash}m{0.25\textwidth}
+}
+\centering
   \begin{tikzpicture}[
     baseline=(current bounding box.center),
     every node/.style={draw, ellipse, minimum width=1.5cm, minimum height=0.9cm, line width=2.5pt},
     edge/.style={-, line width=2.5pt}
     ]
-    \node (A) at (0,0) {};
+    \node (A) at (0,0) {A};
     \node (B) at (1,1) {};
     \node (C) at (1,-1) {};
     \node (D) at (2,0) {};
-    \node (E) at (2,2) {};
+    \node (E) at (2,2) {E};
+    \node (G) at (0,-2) {G};
+    \node (H) at (1,-3) {};
+    %\node (F) at (2,-8) {};
 
     \draw[edge] (A) -- (B);
     %\draw[edge] (A) -- (C);
@@ -154,7 +166,7 @@
 
 &
 \centering
-\Huge \emph{\textbf{Il mio titolo della tesi in italiano}}
+\Huge \emph{\textbf{Random Forest su immagini satellitari per il riconoscimento e il conteggio di piante}}
 &
 \centering
 \begin{tikzpicture}[xscale=-1,
@@ -185,6 +197,7 @@
 		\end{flushleft}
 	\end{minipage}
 	\begin{minipage}{0.45\textwidth}
+    
 		\begin{flushright} \Large
 			\emph{Laureando:} \\
 			\Large \textbf{Tobia \textsc{Sacchetto}}
@@ -213,11 +226,11 @@
 \thispagestyle{empty} %serve per avere la parte sinistra libera e mantenere i capitoli sulla parte destra del libro
 In vasti terreni contare il numero di piante specifiche e identificarle è un problema. 
 Basti pensare ad una piccola azienda agricola con qualche ettaro di terreno e qualche migliaia di piante.
-Lo studio proposto in questa tesi espone un metodo per identificare e contare il numero di piante di avvocado in un terreno aziendale tra la Spagna e il Portogallo attraverso tecniche di machine learning basate su immagini satellitari.\\
+Lo studio proposto in questa tesi espone un metodo per identificare e contare il numero di piante di avocado in un terreno aziendale tra la Spagna e il Portogallo attraverso tecniche di machine learning basate su immagini satellitari.\\
 Lo scopo è fornire un algoritmo che attraverso un immagine mi identifichi il numero di piante, e anche di conseguenza la dimensione totale della piantagione, per una rapida verifica del controllo del territorio agricolo.
-\pagestyle{empty} %crea la pagina vuota
+\thispagestyle{empty} %crea la pagina vuota
 \clearpage
-\chapter{Background}
+\chapter{Conoscenze Preliminari}
 \setupfancy
 \thispagestyle{empty}
 In questo capitolo affronteremo le basi per comprendere successivamente appieno la struttura e i passaggi del lavoro.
@@ -231,6 +244,15 @@ Il seguente capitolo è suddiviso in 2 parti:
 
 \input{capitoli/capitolo1/capitolo_1}
 
+\clearpage
+\thispagestyle{empty}
+\chapter{Creazione del modello}
+\setupfancy
+\thispagestyle{empty}
+In questo capitolo si andrà ad analizzare i dati e la loro struttura e successivamente si faranno delle scelte riguardo la creazione del modello.
+infine si mostrerà la creazione del modello stesso usando il lavoro descritto nel capitolo precedente.
+
+\input{capitoli/capitolo2/capitolo_2}
 
 \printbibliography
 
