@@ -1,14 +1,14 @@
 \newpage
 \section{Cosa è l'analisi delle immagini satellitari}
 L'analisi delle immagini satellitari si riferisce al processo di estrazione di informazioni importanti dalle fotografie aeree scattate da satelliti orbitali.
-Questo campo combina la disciplina del telerilevamento con tecniche di apprendimento automatico (computer vision) per interpretare grandi quantità di dati visivi.
+Questo campo combina la disciplina del telerilevamento con tecniche di apprendimento automatico (nello specifico computer vision) per interpretare grandi quantità di dati visivi.
 \subsection{Dati di una fotografia satellitare}
-All'interno di una fotografia comune (anche quella scattata dai telefoni), è possibile ricavarne i colori RGB che stanno per Red (Rosso), 
-Green(Verde) e Blue(Blu). attraverso la combinazione di questi 3 valori si può ricreare tutti i colori dello spettro 
-visibile (osservabile con gli occhi). Tuttavia, nelle immagini satellitari, vi sono anche i canali infrarosso quali 
+All'interno di una fotografia comune (banalmente anche quella scattata dai telefoni), è possibile ricavarne i colori attraverso la codifica RGB che sta per Red (Rosso), 
+Green(Verde) e Blue(Blu). Attraverso la combinazione di questi 3 valori si possono ricreare tutti i colori dello spettro 
+visibile (osservabile con gli occhi). Inoltre, nelle immagini satellitari, vi sono anche i canali infrarosso quali 
 RedEdge, NIR e SWIR.
 Si mostra una tabella \ref{tab:tabella infrarosso} di alcune frequenze d'onda della radiazione 
-elettromagnetica. Ad ogni frequenza di questa appartiene una categoria. Si mostra anche un'immagine \ref{fig:spettro infrarosso} che mostra lo spettro delle luce visibile e dell'infrarosso.
+elettromagnetica. Ad ogni frequenza appartiene una categoria. Si mostra anche un'immagine \ref{fig:spettro infrarosso} che illustra lo spettro della luce visibile e dell'infrarosso.
 \begin{table}[htbp]
     
     \begin{center}
@@ -41,15 +41,17 @@ elettromagnetica. Ad ogni frequenza di questa appartiene una categoria. Si mostr
 \end{figure}
 Attraverso l'infrarosso si può comprendere caratteristiche invisibili all'occhio umano per esempio lo stato di salute della vegetazione o i livelli di umidità del suolo.
 \\Per lavorare con questi tipi di immagini è stato usato il software open source QGIS. Queste immagini hanno un formato \texttt{.tiff} e i file con cui è stato lavorato sono chiamati \texttt{...6band.tiff} dove, in questo caso, \texttt{6band} sta per $Red+Green+Blue+RedEdge+NIR+SWIR$.
+I valori delle bande nei file \texttt{.tiff} satellitari vengono salvati come \texttt{float32}. Questo formato permette di rappresentare le variabili con la virgola mobile per avere una precisione maggiore, anziché l'utilizzo di numeri interi.\\
 Un esempio di un'immagine satellitare, con bbox (bounding box) disegnate per indicare la pianta, è riportata \ref{fig:satellite con identificazione piante}.
+Le bbox vengono salvate in file \texttt{.geojson}. All'interno di questo file ogni riga appartiene ad una singola bbox e ogni riga contiene le coordinate dei punti che formano il poligono (cioè la bbox).
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{capitoli/capitolo1/images/satellite.png}
     \caption{Immagine satellitare con identificazione piante}
     \label{fig:satellite con identificazione piante}
 \end{figure}
-Un'immagine è un insieme di pixel con coordinate $(x,y)$ dove $x$ mi indica la posizione del pixel nell'immagine sull'asse delle ascisse (asse orizzontale) e $y$ sull'asse delle ordinate (asse verticale).
-Ogni pixel, oltre alle coordinate di riferimento, ha un valore che mi indica l'intensità del rosso, uno del verde, uno del blu, uno del RedEdge, uno del NIR e uno del canale SWIR.
+\\Un'immagine è un insieme di pixel con coordinate $(x,y)$ dove $x$ mi indica la posizione del pixel nell'immagine sull'asse delle ascisse (asse orizzontale) e $y$ sull'asse delle ordinate (asse verticale).
+Ogni pixel, oltre alle coordinate di riferimento, ha un valore che indica l'intensità del rosso, uno del verde, uno del blu, uno del RedEdge, uno del NIR e uno del canale SWIR.
 \section{Introduzione al Machine Learning}
 Il machine learning è il sottoinsieme dell'intelligenza artificiale (AI) basato su algoritmi in grado di "apprendere" i modelli dei dati di addestramento e, successivamente, fare previsioni accurate sui nuovi dati. 
 Questa capacità di riconoscimento dei modelli consente ai modelli di machine learning di prendere decisioni o fare previsioni senza istruzioni esplicite e codificate.\\
@@ -81,9 +83,9 @@ $x_8$ & Zyrtec 10 mg & Antistaminico & 8.70 & Disponibile \\
 Possiamo distinguere i modelli in 3 principali tipi di apprendimento automatico:
 \begin{itemize}
     \item \textbf{Apprendimento Supervisionato}:\\
-    Nel dataset oltre all'input $x_i$ viene associato (ad ogni input $x_i$)un output $y_i$. Si riporta una tabella esempio come la precendete. 
+    Nel dataset oltre all'input $x_i$ viene associato (ad ogni input $x_i$)un output $y_i$. Si riporta una tabella esempio \ref{tab:coppie_dataset_farmacia} come la precendete. 
     In questo caso $y_i$ indica se deve essere comprato oppure no il farmaco dal grossista.
-    \begin{table}[htbp]
+    \begin{table}[H]
     \centering
     \begin{tabular}{|c|l|l|c|c|}
     \hline
@@ -104,7 +106,7 @@ Possiamo distinguere i modelli in 3 principali tipi di apprendimento automatico:
     \end{table}
     Il modello osserva coppie di input-output ($(x_1,y_1),...,(x_n,y_n)$) e apprende una funzione (chiamata $\hat{h}$) che dato l'input ($x_i$), il valore della funzione $\hat{h}(x)$ cerca di farlo avvicinare all'output corretto ($y_i$). Per esempio, gli input potrebbero essere
     immagini ottenute da una fotocamera, ognuna accompagnata da un output che indica “bus”
-    o “pedone” e così via. Un output come questo è chiamato etichetta. Nel nostro esempio l'output è se il farmacista dovrebbe comprarlo dal grossista oppure no, mentre le etichette sono Farmaco, Categoria, Prezzo e Disponibilità
+    o “pedone” e così via. Un output come questo è chiamato etichetta. Nel nostro esempio l'output è se il farmacista dovrebbe comprarlo dal grossista oppure no, mentre le etichette sono Farmaco, Categoria, Prezzo e Disponibilità.
     Una funzione è dato un input $x_i$ si ricava il risultato. Per esempio la funzione
     \begin{align}
         h(x_i)&=y_i\\
@@ -119,7 +121,7 @@ Possiamo distinguere i modelli in 3 principali tipi di apprendimento automatico:
     individuare cluster potenzialmente utili di esempi di input. Per esempio, un sistema
     di visione artiﬁciale, osservando milioni di immagini prese da Internet, è in grado di
     identiﬁcare un ampio cluster di immagini simili che una persona chiamerebbe gatti.
-    Per esempio nell'immagine sottostante i puntini in rosso sono i gatti, in verde le piante e in blu i pesci. 
+    Per esempio nell'immagine sottostante \ref{fig:cluster} i puntini in rosso sono i gatti, in verde le piante e in blu i pesci. 
     \begin{figure}[htbp]
         \centering
         \includegraphics[width=0.5\textwidth]{capitoli/capitolo1/images/SLINK-Gaussian-data.png}
@@ -142,7 +144,7 @@ Un esempio di ragionamento deduttivo è il seguente:
 a partire da regole generali e da fatti specifici, una macchina deduce 
 una conclusione logicamente necessaria (se è vero che \texttt{tutti i mammiferi allattano} 
 e che \texttt{Fido è un mammifero}, allora deduco che \texttt{Fido allatta}).\\
-L'apprendimento simbolico non necessita di grandi quantità di dati per l'addestramento, ha un'alta trasparenza nelle decisioni (perché ogni ragionamento si può comprendere attraverso regole logiche) e ha limiti nella gestione di dati rumorosi o ambigui.\\
+L'apprendimento simbolico non neccessità di grandi quantità di dati per l'addestramento, ha un'alta trasparenza nelle decisioni (perché ogni ragionamento si può comprendere attraverso regole logiche) e ha limiti nella gestione di dati rumorosi o ambigui.\\
 L'apprendimento simbolico si contrappone all'apprendimento statistico (ad esempio le reti neurali), 
 basato su correlazioni numeriche estratte dai dati. Quest'ultimo ha bisogno di grandi quantità di dati nell'apprendimento, sono delle blackbox (dato un input si ha un output, ma non si conosce il ragionamento dietro) e è buono nella gestione di dati rumorosi o ambigui.
 
@@ -408,7 +410,7 @@ calcolato $IG(G|V_i)$ e viene scelto quello con il guadagno più alto.
 \label{subsec:foresta_casuale}
 Una Foresta Aleatoria (o Foresta Casuale) è un insieme di tanti alberi decisionali 
 $N$. Inoltre questi alberi vengono allenati solo su una parte scelta a caso di tutto il dataset. 
-Questa tecnica viene chiamata bagging. Ogni campione preso in questo modo viene chiamato campione bootstrap ed viene effettuato con estrazione casuale e reinserimento.
+Questa tecnica viene chiamata bagging. Ogni campione preso in questo modo viene chiamato campione bootstrap e viene estratto casualmente con reinserimento.
 Per ogni nodo di questi alberi viene scelto un sottoinsieme di attributi casuali su cui cercare lo split migliore.
 L'input anziché essere dato a un singolo albero viene dato a tanti alberi in parallelo. 
 I risultati $u_i$ di questi vengono valutati per l'intera Foresta come una media $\left( \frac{1}{N}\cdot\sum^N_{k=1} u_k\right)$ se si tratta di un problema di regressione, oppure come un voto di 
@@ -417,7 +419,7 @@ maggioranza se invece si tratta di un problema di classificazione.
 \label{subsec:regressione_lineare}
 La Regressione Lineare viene definita come un adattamento ad una funzione lineare dei dati (punti).
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \begin{minipage}{0.45\textwidth}
         \begin{tikzpicture}
@@ -540,7 +542,7 @@ La Regressione Lineare viene definita come un adattamento ad una funzione linear
 
 \caption{A sinistra una Regressione Lineare Univariata (Retta). A destra una approssimazione NON Lineare (Curva lisciata)}
 \end{figure}
-\texttt{Per chiarezza, la curva di regressione è stata creata interpolando solo 5 punti dall'insieme del dataset presi a intervalli regolari. Questo non altera la tendenza poichè la funzione tende a generalizzare bene l'andamento dei punti.}\\
+Per chiarezza, la curva di regressione è stata creata interpolando solo 5 punti dall'insieme del dataset presi a intervalli regolari. Questo non altera la tendenza poichè la funzione tende a generalizzare bene l'andamento dei punti.\\
 Dati un insieme di $i$ punti con 2 variabili $(x,y)$,  per esempio
 $(x=\text{Larghezza},y=\text{Lunghezza})$ la regressione è costruire una funzione che adatta l'andamento
 dei punti. In questa tesi si affronterà la Regressione Lineare Univariata. Nella Regressione Lineare Univariata la funzione che adatta i punti è una retta.
@@ -619,7 +621,7 @@ dei valori dei pixel di colore rosso e si pongono i seguenti valori:
 
 Di conseguenza nel pixel $a_{22}$ avrò la media effettuata da:
 \begin{align}
-    media3x3rosso(a_{22})&=\frac{1}{i\cdot j}\cdot\sum_i\sum_j a_{ij}\\
+    \mathrm{media}_{3\times3,\mathrm{rosso}}(a_{22})&=\frac{1}{i\cdot j}\cdot\sum_i\sum_j a_{ij}\\
     &=\frac{1}{3\cdot3}\cdot \big( \left( 0.75+0.75+0.75\right)\\
     &+ \left( 0.45+0.25+0.95\right)+ \left(0.35+0.25+0.05\right)\big)\\
     &=0.5056
@@ -697,7 +699,7 @@ nel caso precendente, quindi
     \begin{aligned}[t]
     \Big(
         &(0.75-0.6278)^2+(0.75-0.6278)^2+(0.75-0.6278)^2 \\
-        &(0.75-0.6278)^2+(0.75-0.6278)^2+(0.75-0.6278)^2 \\
+        &+(0.75-0.6278)^2+(0.75-0.6278)^2+(0.75-0.6278)^2 \\
         &+(0.45-0.6278)^2+(0.45-0.6278)^2+(0.25-0.6278)^2 \Big)
     \end{aligned}
 } \\
@@ -729,5 +731,6 @@ Non si può dedurre che si riuscirà a identificare la pianta in maniera certa e
 procedere a valutare caso per caso se l'identificazione è possibile.\\
 Alcuni articoli, come \cite{YAO2021107591}, hanno usato una rete neurale (di tipologia CNN) per trovare una mappa di densità degli alberi dall'immagine. Il numero totale degli alberi si ottiene integrando tale mappa.
 Altri articoli, come \cite{FU2017106}, usano una Foresta Casuale \ref{subsec:foresta_casuale} pixel per pixel per mappare la vegetazione delle zone umide. 
+È stata inoltre consultata la tesi \cite{pampalone_tane_fossori} per avere un contesto sulla lavorazione pixel per pixel.
 
 %Stop crea un altro file del capitolo 2

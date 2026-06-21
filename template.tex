@@ -12,6 +12,9 @@
 \usepackage{mathtools}
 \usepackage{amsthm}
 \usepackage{ifpdf}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{caption}
 \usepackage{float}
 \usepackage{cases}
 \usepackage{ragged2e} 	% https://tex.stackexchange.com/questions/89680/how-can-one-set-full-justification-within-left-justified-raggedright-text
@@ -124,7 +127,7 @@
 	\huge \textbf{\textsc{Università degli Studi di Ferrara}}
 	\Large \textsc{Corso di Laurea in Informatica}
 	
-	% \vspace*{1.5cm}
+	\vspace*{1.5cm}
 	% \hrule width \hsize \kern 1mm \hrule width \hsize height 2pt %disegna 2 righe
 	% \vspace*{10mm}
 	% \Huge \emph{\textbf{Il mio titolo della tesi in italiano}}
@@ -136,59 +139,55 @@
   %\vspace*{1.5cm}
   \begin{center}
 
-\begin{tabular}{
-    >{\centering\arraybackslash}m{0.25\textwidth}
-    >{\centering\arraybackslash}m{0.4\textwidth}
-    >{\centering\arraybackslash}m{0.25\textwidth}
-}
-\centering
-  \begin{tikzpicture}[
-    baseline=(current bounding box.center),
-    every node/.style={draw, ellipse, minimum width=1.5cm, minimum height=0.9cm, line width=2.5pt},
-    edge/.style={-, line width=2.5pt}
-    ]
-    \node (A) at (0,0) {A};
-    \node (B) at (1,1) {};
-    \node (C) at (1,-1) {};
-    \node (D) at (2,0) {};
-    \node (E) at (2,2) {E};
-    \node (G) at (0,-2) {G};
-    \node (H) at (1,-3) {};
-    %\node (F) at (2,-8) {};
+% %}
+% \centering
+%   \begin{tikzpicture}[
+%     baseline=(current bounding box.center),
+%     every node/.style={draw, ellipse, minimum width=1.5cm, minimum height=0.9cm, line width=2.5pt},
+%     edge/.style={-, line width=2.5pt}
+%     ]
+%     \node (A) at (0,0) {A};
+%     \node (B) at (1,1) {};
+%     \node (C) at (1,-1) {};
+%     \node (D) at (2,0) {};
+%     \node (E) at (2,2) {E};
+%     \node (G) at (0,-2) {G};
+%     \node (H) at (1,-3) {};
+%     %\node (F) at (2,-8) {};
 
-    \draw[edge] (A) -- (B);
-    %\draw[edge] (A) -- (C);
-    \draw[edge] (B) -- (D);
-    \draw[edge] (C) -- (D);
-    \draw[edge] (B) -- (E);
-  \end{tikzpicture}
+%     \draw[edge] (A) -- (B);
+%     %\draw[edge] (A) -- (C);
+%     \draw[edge] (B) -- (D);
+%     \draw[edge] (C) -- (D);
+%     \draw[edge] (B) -- (E);
+%   \end{tikzpicture}
 
 
-&
+% &
 \centering
 \Huge \emph{\textbf{Random Forest su immagini satellitari per il riconoscimento e il conteggio di piante}}
-&
-\centering
-\begin{tikzpicture}[xscale=-1,
-    baseline=(current bounding box.center),
-    every node/.style={draw, ellipse, minimum width=1.5cm, minimum height=0.9cm, line width=2.5pt},
-    edge/.style={-, line width=2.5pt}
-    ]
-    \node (A) at (0,0) {};
-    \node (B) at (1,1) {};
-    \node (C) at (1,-1) {};
-    \node (D) at (2,0) {};
-    \node (E) at (2,2) {};
+% &
+% \centering
+% \begin{tikzpicture}[xscale=-1,
+%     baseline=(current bounding box.center),
+%     every node/.style={draw, ellipse, minimum width=1.5cm, minimum height=0.9cm, line width=2.5pt},
+%     edge/.style={-, line width=2.5pt}
+%     ]
+%     \node (A) at (0,0) {};
+%     \node (B) at (1,1) {};
+%     \node (C) at (1,-1) {};
+%     \node (D) at (2,0) {};
+%     \node (E) at (2,2) {};
 
-    \draw[edge] (A) -- (B);
-    %\draw[edge] (A) -- (C);
-    \draw[edge] (B) -- (D);
-    \draw[edge] (C) -- (D);
-    \draw[edge] (B) -- (E);
-  \end{tikzpicture}
-\end{tabular}
+%     \draw[edge] (A) -- (B);
+%     %\draw[edge] (A) -- (C);
+%     \draw[edge] (B) -- (D);
+%     \draw[edge] (C) -- (D);
+%     \draw[edge] (B) -- (E);
+%   \end{tikzpicture}
+% \end{tabular}
 \end{center}
-
+\vspace*{1.5cm}
 	\vspace*{15mm}
 	\begin{minipage}{0.45\textwidth}
 		\begin{flushleft} \Large
@@ -225,19 +224,20 @@
 %%% all'inizio di ogni capitolo, questa impostazione rimuove il numero di pagina, provare a commentare per vedere la differenza
 \thispagestyle{empty} %serve per avere la parte sinistra libera e mantenere i capitoli sulla parte destra del libro
 In vasti terreni contare il numero di piante specifiche e identificarle è un problema. 
-Basti pensare ad una piccola azienda agricola con qualche ettaro di terreno e qualche migliaia di piante.
+Si consideri, per esempio, una piccola azienda agricola con qualche ettaro di terreno e qualche migliaio di piante.
 Lo studio proposto in questa tesi espone un metodo per identificare e contare il numero di piante di avocado in un terreno aziendale tra la Spagna e il Portogallo attraverso tecniche di machine learning basate su immagini satellitari.\\
-Lo scopo è fornire un algoritmo che attraverso un immagine mi identifichi il numero di piante, e anche di conseguenza la dimensione totale della piantagione, per una rapida verifica del controllo del territorio agricolo.
+Lo scopo è fornire un algoritmo che attraverso un'immagine che sia in grado di individuare il numero di piante, e anche di conseguenza la dimensione totale della piantagione, per una rapida verifica del controllo del territorio agricolo.
 \thispagestyle{empty} %crea la pagina vuota
 \clearpage
+\pagestyle{empty}
 \chapter{Conoscenze Preliminari}
 \setupfancy
 \thispagestyle{empty}
-In questo capitolo affronteremo le basi per comprendere successivamente appieno la struttura e i passaggi del lavoro.
+In questo capitolo si affronterà le basi per comprendere successivamente appieno la struttura e i passaggi del lavoro svolto.
 Il seguente capitolo è suddiviso in 2 parti:
 \begin{itemize}
-  \item La prima in cui si spiega che cosa è l'analisi di immagini satellitari, il tipologia delle immagini su cui si è lavorato e come è possibile riconoscere. 
-  \item La seconda sezione introdurrà invece i concetti fondamentali del machine learning, con focus specifico sul machine learning simbolico che useremo nel progetto.
+  \item La prima sezione spiega l'analisi di immagini satellitari, la loro tipologia e come è possibile riconoscere le piante. 
+  \item La seconda sezione introduce invece i concetti fondamentali del machine learning, con un'attenzione specifica sul machine learning simbolico che è stato usato nel progetto.
 \end{itemize} 
 
 
@@ -254,7 +254,98 @@ infine si mostrerà la creazione del modello stesso usando il lavoro descritto n
 
 \input{capitoli/capitolo2/capitolo_2}
 
+\clearpage
+\thispagestyle{empty}
+\chapter{Risultati}
+\setupfancy
+\thispagestyle{empty}
+La tabella \ref{tab:cv_3classi} riporta i risultati finali ottenuti dal modello addestrato sulle bande NIR e SWIR, valutata mediante cross-validazione sul training set. 
+L'accuratezza complessiva ($F1$) del modello come riportato è pari a \texttt{0.89} con un buon bilanciamento tra le classi \texttt{tipologia1}, \texttt{tipologia2} e \texttt{sfondo}.
+La \texttt{tipologia3} mostra prestazioni minori ($F1=0.66$), principalmente a causa di una bassa $Recall$ ($0.58$). 
+Tale punteggio indica che molti pixel di questa classe vengono erroneamente assegnati ad altre.
+\begin{table}[H]
+  \centering
+  \begin{tabular}{lS[table-format=1.2]S[table-format=1.2]S[table-format=1.2]S[table-format=6.0]}
+    \toprule
+    \textbf{Classe} & \textbf{Precision} & \textbf{Recall} & \textbf{F1-score} & \textbf{Support} \\
+    \midrule
+    sfondo       & 0.87 & 0.90 & 0.88 & 115858 \\
+    tipologia 1  & 0.91 & 0.89 & 0.90 & 135863 \\
+    tipologia 2  & 0.95 & 0.93 & 0.94 &   1068 \\
+    tipologia 3  & 0.77 & 0.58 & 0.66 &   6392 \\
+    \midrule
+    accuracy     &      &      & 0.89 & 259181 \\
+    macro avg    & 0.87 & 0.82 & 0.84 & 259181 \\
+    weighted avg & 0.89 & 0.89 & 0.89 & 259181 \\
+    \bottomrule
+  \end{tabular}
+  \caption{Risultati per classe — Cross-Validation sul Training Set (3 classi)}
+  \label{tab:cv_3classi}
+\end{table}
+
+
+
+
+La tabella \ref{tab:cv_4classi} mostra i risultati per il modello solo NIR. Si ricorda che il modello solo NIR trova una tipologia di pianta in più rispetto al modello NIR e SWIR.
+L'accuratezza scende a \texttt{0.85}, e la perdita di accuratezza è particolarmente marcato 
+per \texttt{tipologia2} ($F1=0.52$) e \texttt{tipologia3} ($F1=0.40$), le cui recall crolla rispettivamente a $0.41$ e $0.30$.
+\begin{table}[H]
+  \centering
+  \begin{tabular}{lS[table-format=1.2]S[table-format=1.2]S[table-format=1.2]S[table-format=6.0]}
+    \toprule
+    \textbf{Classe} & \textbf{Precision} & \textbf{Recall} & \textbf{F1-score} & \textbf{Support} \\
+    \midrule
+    sfondo       & 0.83 & 0.87 & 0.85 & 113035 \\
+    tipologia 1  & 0.87 & 0.84 & 0.85 & 135863 \\
+    tipologia 2  & 0.74 & 0.41 & 0.52 &   1068 \\
+    tipologia 3  & 0.61 & 0.30 & 0.40 &   6392 \\
+    tipologia 4  & 0.91 & 0.95 & 0.93 &  40000 \\
+    \midrule
+    accuracy     &      &      & 0.85 & 299181 \\
+    macro avg    & 0.79 & 0.67 & 0.71 & 299181 \\
+    weighted avg & 0.85 & 0.85 & 0.85 & 299181 \\
+    \bottomrule
+  \end{tabular}
+  \caption{Risultati per classe — Cross-Validation sul Training Set (4 classi)}
+  \label{tab:cv_4classi}
+\end{table}
+
+Dal confronto tra i risultati tra i due modelli emerge che la disponibilità della banda SWIR 
+porta a un miglioramento significativo nella discriminazione 
+delle specie vegetali, in linea con quanto osservato nell'analisi spettrale.
+
+Si è visto inoltre che il modello tende a migliorare la \texttt{tipologia2} e \texttt{tipologia3} molto se si dispone di maggiori Support (ovvero di training set di \texttt{tipologia2} e \texttt{tipologia3}).
+Lo stesso si può dire per
+il modello NIR e SWIR con la \texttt{tipologia3}.
+
+Un ulteriore affermazione, che si può dire osservando i risultati è che il dataset è sbilanciato. 
+Il risultato finale è un file \texttt{.geojson} dove vengono 
+salvati gli agglomerati, che la Foresta Casuale identifica come pianta, e 
+ ogni agglomerato viene trasformato in un poligono(bbox) e gli viene assegnato un numero che identifica la tipologia di pianta, una stima del numero di piante presente al suo interno e 
+l'area occupata.
+
+\clearpage
+\thispagestyle{empty}
+\chapter{Conclusioni}
+\setupfancy
+\thispagestyle{empty}
+In questa tesi è stato mostrato un approccio al problema di classificazione (tramite una Foresta Casuale) e conteggio di piante (tramite una regressione per ogni tipologia di pianta) pixel per pixel di immagini satellitari. 
+È stato scelto di creare una random forest che funziona usando solo la banda NIR e una che funziona usando NIR + SWIR. Il modello solo NIR raggiunge dei livelli di accuratezza maggiori 
+di $F1=0.8$ per le tipologie \texttt{tipologia1} e \texttt{tipologia4} (quindi avocado e aranci). Invece, il modello NIR e SWIR funziona meglio con la classificazione di \texttt{tipologia1} e \texttt{tipologia2} e non ha la capacità di poter distinguere la \texttt{tipologia4}.
+Entrambe le Foreste Casuali create hanno dei limiti:
+\begin{itemize}
+  \item Non riescono a risolvere in maniera precisa la \texttt{tipologia3} e la \texttt{tipologia2}, poiché il modello tende ad associare le piante ad un'altra tipologia. 
+  \item È presente uno sbilanciamento delle classi
+  \item La regressione lineare funziona solo su piante che non si sovrappongono
+\end{itemize}
+Questo tipo di approcci non ha soluzioni empiriche universali ma ogni caso richiede un adattamento specifico. 
+In futuro, si potrebbe creare un ampliamento del dataset su cui lavorare e un'integrazione di bande infrarosso aggiuntive e un accrescimento di risoluzione per immagini su cui poter andare a lavorare.
+Un'ulteriore accortezza che eventualmente migliorerebbe il programma è l'aggiunta di una regressione lineare basata anche sulla sovrapposizione di piante per il conteggio.\\
+Soluzioni analoghe verranno sempre più utilizzate in futuro man mano che la tecnologia avanzerà e 
+verranno sempre più usate tecnologie di precisione di larga scala 
+per l'agricoltura.
+
 \printbibliography
 
 
-\end{document} 
+\end{document}
