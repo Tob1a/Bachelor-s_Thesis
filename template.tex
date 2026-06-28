@@ -225,15 +225,26 @@
 \thispagestyle{empty} %serve per avere la parte sinistra libera e mantenere i capitoli sulla parte destra del libro
 In vasti terreni contare il numero di piante specifiche e identificarle è un problema. 
 Si consideri, per esempio, una piccola azienda agricola con qualche ettaro di terreno e qualche migliaio di piante.
-Lo studio proposto in questa tesi espone un metodo per identificare e contare il numero di piante di avocado in un terreno aziendale tra la Spagna e il Portogallo attraverso tecniche di machine learning basate su immagini satellitari.\\
-Lo scopo è fornire un algoritmo che attraverso un'immagine che sia in grado di individuare il numero di piante, e anche di conseguenza la dimensione totale della piantagione, per una rapida verifica del controllo del territorio agricolo.
+Lo studio, proposto in questa tesi, espone un metodo veloce per identificare e contare il numero di piante avocado in un terreno aziendale tra Spagna e Portogallo attraverso tecniche di machine learning basate su immagini satellitari.\\
+Lo scopo è fornire un algoritmo che attraverso un'immagine sia in grado di individuare il numero di piante, e anche, di conseguenza, la dimensione totale della piantagione, per una rapida verifica del controllo del territorio agricolo.\\
+Per risolvere queste tipologie di problemi, solitamente, vengono usati algoritmi di apprendimento automatico come, per esempio, Reti Neurali Profonde.
+In questa specifica tesi è stato usato un algoritmo chiamato Foresta Casuale \ref{subsec:foresta_casuale}:
+data un'immagine analizza pixel per pixel e viene stabilito se il pixel esaminato appartiene oppure non appartiene a un determinato genere di pianta.
+Successivamente, dato un numero di pixel vicini tra di loro della stessa tipologia si può comprendere il numero di piante della stessa specie attraverso un modello di regressione lineare \ref{subsec:regressione_lineare}.
+Nello specifico la Foresta Casuale classifica attraverso le bande infrarosso fornite dall'immagine stessa. Sono stati creati 2 modelli: uno che funziona con solo la banda NIR e un altro che utilizza le bande NIR+SWIR.
+Oltre a un dataset fornito dall'azienda è stato usato anche 
+un ulteriore dataset \cite{guillem_montalban_faet_2025_17866344} per allenare il modello solo NIR.
+I risultati sono stati discreti con un calo di performance 
+dovuto a uno sbilanciamento del dataset per un numero inferiore di dati per alcune determinate varietà di piante.
+
+
 \thispagestyle{empty} %crea la pagina vuota
 \clearpage
 \pagestyle{empty}
 \chapter{Conoscenze Preliminari}
 \setupfancy
 \thispagestyle{empty}
-In questo capitolo si affronterà le basi per comprendere successivamente appieno la struttura e i passaggi del lavoro svolto.
+In questo capitolo si affronteranno le basi per comprendere successivamente appieno la struttura e i passaggi del lavoro svolto.
 Il seguente capitolo è suddiviso in 2 parti:
 \begin{itemize}
   \item La prima sezione spiega l'analisi di immagini satellitari, la loro tipologia e come è possibile riconoscere le piante. 
@@ -249,8 +260,8 @@ Il seguente capitolo è suddiviso in 2 parti:
 \chapter{Creazione del modello}
 \setupfancy
 \thispagestyle{empty}
-In questo capitolo si andrà ad analizzare i dati e la loro struttura e successivamente si faranno delle scelte riguardo la creazione del modello.
-infine si mostrerà la creazione del modello stesso usando il lavoro descritto nel capitolo precedente.
+In questo capitolo si andrà ad analizzare i dati e la loro struttura. Successivamente si faranno delle scelte riguardo la creazione del modello.
+Infine si mostrerà la creazione del modello stesso usando il lavoro descritto nel capitolo precedente.
 
 \input{capitoli/capitolo2/capitolo_2}
 
@@ -279,7 +290,7 @@ Tale punteggio indica che molti pixel di questa classe vengono erroneamente asse
     weighted avg & 0.89 & 0.89 & 0.89 & 259181 \\
     \bottomrule
   \end{tabular}
-  \caption{Risultati per classe — Cross-Validation sul Training Set (3 classi)}
+  \caption{Risultati per classe — Cross-Validazione sul Training Set (3 classi)}
   \label{tab:cv_3classi}
 \end{table}
 
@@ -306,7 +317,7 @@ per \texttt{tipologia2} ($F1=0.52$) e \texttt{tipologia3} ($F1=0.40$), le cui re
     weighted avg & 0.85 & 0.85 & 0.85 & 299181 \\
     \bottomrule
   \end{tabular}
-  \caption{Risultati per classe — Cross-Validation sul Training Set (4 classi)}
+  \caption{Risultati per classe — Cross-Validazione sul Training Set (4 classi)}
   \label{tab:cv_4classi}
 \end{table}
 
@@ -320,8 +331,8 @@ il modello NIR e SWIR con la \texttt{tipologia3}.
 
 Un ulteriore affermazione, che si può dire osservando i risultati è che il dataset è sbilanciato. 
 Il risultato finale è un file \texttt{.geojson} dove vengono 
-salvati gli agglomerati, che la Foresta Casuale identifica come pianta, e 
- ogni agglomerato viene trasformato in un poligono(bbox) e gli viene assegnato un numero che identifica la tipologia di pianta, una stima del numero di piante presente al suo interno e 
+salvati gli agglomerati, che la Foresta Casuale identifica come pianta. 
+Ogni agglomerato viene trasformato in un poligono(bbox) e gli viene assegnato un numero che identifica la tipologia di pianta, una stima del numero di piante presente al suo interno e 
 l'area occupata.
 
 \clearpage
@@ -334,15 +345,15 @@ In questa tesi è stato mostrato un approccio al problema di classificazione (tr
 di $F1=0.8$ per le tipologie \texttt{tipologia1} e \texttt{tipologia4} (quindi avocado e aranci). Invece, il modello NIR e SWIR funziona meglio con la classificazione di \texttt{tipologia1} e \texttt{tipologia2} e non ha la capacità di poter distinguere la \texttt{tipologia4}.
 Entrambe le Foreste Casuali create hanno dei limiti:
 \begin{itemize}
-  \item Non riescono a risolvere in maniera precisa la \texttt{tipologia3} e la \texttt{tipologia2}, poiché il modello tende ad associare le piante ad un'altra tipologia. 
+  \item Non riescono a risolvere in maniera precisa la \texttt{tipologia3} e la \texttt{tipologia2}, poiché il modello tende ad associare le piante a un'altra tipologia. 
   \item È presente uno sbilanciamento delle classi
   \item La regressione lineare funziona solo su piante che non si sovrappongono
 \end{itemize}
-Questo tipo di approcci non ha soluzioni empiriche universali ma ogni caso richiede un adattamento specifico. 
-In futuro, si potrebbe creare un ampliamento del dataset su cui lavorare e un'integrazione di bande infrarosso aggiuntive e un accrescimento di risoluzione per immagini su cui poter andare a lavorare.
+Queste tipologie di quesiti non hanno soluzioni empiriche universali ma ogni caso richiede un adattamento specifico. 
+In futuro, si potrebbe creare un ampliamento del dataset su cui lavorare, un'integrazione di bande infrarosso aggiuntive e un accrescimento di risoluzione per immagini su cui poter andare a lavorare.
 Un'ulteriore accortezza che eventualmente migliorerebbe il programma è l'aggiunta di una regressione lineare basata anche sulla sovrapposizione di piante per il conteggio.\\
-Soluzioni analoghe verranno sempre più utilizzate in futuro man mano che la tecnologia avanzerà e 
-verranno sempre più usate tecnologie di precisione di larga scala 
+Soluzioni analoghe verranno sempre più utilizzate in futuro man mano che la tecnologia avanzerà e si diffonderanno
+tecnologie di precisione su larga scala 
 per l'agricoltura.
 
 \printbibliography

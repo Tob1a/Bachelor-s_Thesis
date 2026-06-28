@@ -4,11 +4,11 @@ L'analisi delle immagini satellitari si riferisce al processo di estrazione di i
 Questo campo combina la disciplina del telerilevamento con tecniche di apprendimento automatico (nello specifico computer vision) per interpretare grandi quantità di dati visivi.
 \subsection{Dati di una fotografia satellitare}
 All'interno di una fotografia comune (banalmente anche quella scattata dai telefoni), è possibile ricavarne i colori attraverso la codifica RGB che sta per Red (Rosso), 
-Green(Verde) e Blue(Blu). Attraverso la combinazione di questi 3 valori si possono ricreare tutti i colori dello spettro 
+Green (Verde) e Blue (Blu). Attraverso la combinazione di questi 3 valori si possono ricreare tutti i colori dello spettro 
 visibile (osservabile con gli occhi). Inoltre, nelle immagini satellitari, vi sono anche i canali infrarosso quali 
 RedEdge, NIR e SWIR.
 Si mostra una tabella \ref{tab:tabella infrarosso} di alcune frequenze d'onda della radiazione 
-elettromagnetica. Ad ogni frequenza appartiene una categoria. Si mostra anche un'immagine \ref{fig:spettro infrarosso} che illustra lo spettro della luce visibile e dell'infrarosso.
+elettromagnetica. A ogni frequenza appartiene una categoria. Si mostra anche un'immagine \ref{fig:spettro infrarosso} che illustra lo spettro della luce visibile e dell'infrarosso.
 \begin{table}[htbp]
     
     \begin{center}
@@ -41,9 +41,9 @@ elettromagnetica. Ad ogni frequenza appartiene una categoria. Si mostra anche un
 \end{figure}
 Attraverso l'infrarosso si può comprendere caratteristiche invisibili all'occhio umano per esempio lo stato di salute della vegetazione o i livelli di umidità del suolo.
 \\Per lavorare con questi tipi di immagini è stato usato il software open source QGIS. Queste immagini hanno un formato \texttt{.tiff} e i file con cui è stato lavorato sono chiamati \texttt{...6band.tiff} dove, in questo caso, \texttt{6band} sta per $Red+Green+Blue+RedEdge+NIR+SWIR$.
-I valori delle bande nei file \texttt{.tiff} satellitari vengono salvati come \texttt{float32}. Questo formato permette di rappresentare le variabili con la virgola mobile per avere una precisione maggiore, anziché l'utilizzo di numeri interi.\\
+I valori delle bande nei file \texttt{.tiff} satellitari vengono salvati come \texttt{float32}. Questo formato permette di rappresentare le variabili con la virgola mobile. Questo viene fatto per avere una precisione maggiore, anziché l'utilizzo di numeri interi.\\
 Un esempio di un'immagine satellitare, con bbox (bounding box) disegnate per indicare la pianta, è riportata \ref{fig:satellite con identificazione piante}.
-Le bbox vengono salvate in file \texttt{.geojson}. All'interno di questo file ogni riga appartiene ad una singola bbox e ogni riga contiene le coordinate dei punti che formano il poligono (cioè la bbox).
+Le bbox vengono salvate in file \texttt{.geojson}. All'interno di questo file ogni riga appartiene a una singola bbox e ogni riga contiene le coordinate dei punti che formano il poligono (cioè la bbox).
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{capitoli/capitolo1/images/satellite.png}
@@ -55,10 +55,10 @@ Ogni pixel, oltre alle coordinate di riferimento, ha un valore che indica l'inte
 \section{Introduzione al Machine Learning}
 Il machine learning è il sottoinsieme dell'intelligenza artificiale (AI) basato su algoritmi in grado di "apprendere" i modelli dei dati di addestramento e, successivamente, fare previsioni accurate sui nuovi dati. 
 Questa capacità di riconoscimento dei modelli consente ai modelli di machine learning di prendere decisioni o fare previsioni senza istruzioni esplicite e codificate.\\
-Si definisce dati di addestramento o training data una parte di dati di un dataset che verrà usata per allenare il modello. Il dataset
-viene denito come un insieme di dati organizzati $(X = x_1,..., x_n)$, dove a ogni elemento facente parte di esso, detto istanza o sample, rappresenta una misurazione
+Si definisce \texttt{dati di addestramento} o \texttt{training data} una parte di dati di un dataset che verrà usata per allenare il modello. Il dataset
+viene definito come un insieme di dati organizzati $(X = x_1,..., x_n)$, dove a ogni elemento facente parte di esso, detto istanza o sample, rappresenta una misurazione
 di un certo fenomeno di interesse.\\
-Un esempio di un dataset potrebbe essere quello di una farmacia
+Un esempio di un dataset potrebbe essere quello di una farmacia \ref{tab:dataset_farmacia}.
 \begin{table}[h]
 \centering
 \begin{tabular}{|c|l|l|c|c|}
@@ -80,10 +80,10 @@ $x_8$ & Zyrtec 10 mg & Antistaminico & 8.70 & Disponibile \\
 \end{table}
 
 \subsection{Tipologie di apprendimento}
-Possiamo distinguere i modelli in 3 principali tipi di apprendimento automatico:
+Possiamo distinguere i modelli di machine learning in 3 principali tipi di apprendimento automatico:
 \begin{itemize}
     \item \textbf{Apprendimento Supervisionato}:\\
-    Nel dataset oltre all'input $x_i$ viene associato (ad ogni input $x_i$)un output $y_i$. Si riporta una tabella esempio \ref{tab:coppie_dataset_farmacia} come la precendete. 
+    Nel dataset all'input $x_i$ viene associato (a ogni input $x_i$) un output $y_i$. Si riporta una tabella esempio \ref{tab:coppie_dataset_farmacia}. 
     In questo caso $y_i$ indica se deve essere comprato oppure no il farmaco dal grossista.
     \begin{table}[H]
     \centering
@@ -104,23 +104,23 @@ Possiamo distinguere i modelli in 3 principali tipi di apprendimento automatico:
     \caption{Esempio di coppie di un dataset}
     \label{tab:coppie_dataset_farmacia}
     \end{table}
-    Il modello osserva coppie di input-output ($(x_1,y_1),...,(x_n,y_n)$) e apprende una funzione (chiamata $\hat{h}$) che dato l'input ($x_i$), il valore della funzione $\hat{h}(x)$ cerca di farlo avvicinare all'output corretto ($y_i$). Per esempio, gli input potrebbero essere
+    Il modello osserva coppie di input-output ($(x_1,y_1),...,(x_n,y_n)$) e apprende una funzione (chiamata $\hat{h}$) che dato l'input ($x_i$), il valore della funzione $\hat{h}(x_i)$ cerca di farlo avvicinare all'output corretto ($y_i$). Per esempio, gli input potrebbero essere
     immagini ottenute da una fotocamera, ognuna accompagnata da un output che indica “bus”
-    o “pedone” e così via. Un output come questo è chiamato etichetta. Nel nostro esempio l'output è se il farmacista dovrebbe comprarlo dal grossista oppure no, mentre le etichette sono Farmaco, Categoria, Prezzo e Disponibilità.
+    o “pedone” e così via. Un output come questo è chiamato etichetta. Nel nostro esempio l'output è se il farmacista dovrebbe comprare il medicinale dal grossista oppure no, mentre le etichette sono Farmaco, Categoria, Prezzo e Disponibilità.
     Una funzione è dato un input $x_i$ si ricava il risultato. Per esempio la funzione
     \begin{align}
         h(x_i)&=y_i\\
         h(x_i)&=2x_i+3\\
         h(3)&=2\cdot 3+3=9
     \end{align}
-    Tuttavia, nel machine learning la forma della funzione ($2x+3$) non viene fissata in anticipo: non la conosciamo. 
+    Tuttavia, nel machine learning, la forma della funzione ($2x+3$) non viene fissata in anticipo: non la conosciamo. 
     Questa è calcolata automaticamente a partire dai dati di addestramento.
     \item \textbf{Apprendimento Non Supervisionato}:\\
     Il modello apprende i pattern dall'input ($x_i$) senza alcun
     feedback esplicito ($y_i$). L'attività di apprendimento non supervisionato più comune è il clustering: 
     individuare cluster potenzialmente utili di esempi di input. Per esempio, un sistema
-    di visione artiﬁciale, osservando milioni di immagini prese da Internet, è in grado di
-    identiﬁcare un ampio cluster di immagini simili che una persona chiamerebbe gatti.
+    di visione artificiale, osservando milioni di immagini prese da Internet, è in grado di
+    identificare un ampio cluster di immagini simili che una persona chiamerebbe gatti.
     Per esempio nell'immagine sottostante \ref{fig:cluster} i puntini in rosso sono i gatti, in verde le piante e in blu i pesci. 
     \begin{figure}[htbp]
         \centering
@@ -129,7 +129,7 @@ Possiamo distinguere i modelli in 3 principali tipi di apprendimento automatico:
         \label{fig:cluster}
     \end{figure}
     \item \textbf{Apprendimento Rinforzato}:\\
-    L'apprendimento avviene grazie ad una serie di rinforzi: il modello impara da risposte positive o negative sul risultato. Ad esempio, dopo una partita a
+    L'apprendimento avviene grazie a una serie di rinforzi: il modello impara da risposte positive o negative sul risultato. Ad esempio, dopo una partita a
     un gioco scelto, possono essere assegnati premi per la vittoria o punizioni per la sconfitta in base
     a come ha giocato il modello. Il gioco viene ripetuto e le azioni e scelte prese vengono
     progressivamente alterate dal modello in modo che questo ricerchi una ricompensa.
@@ -144,12 +144,12 @@ Un esempio di ragionamento deduttivo è il seguente:
 a partire da regole generali e da fatti specifici, una macchina deduce 
 una conclusione logicamente necessaria (se è vero che \texttt{tutti i mammiferi allattano} 
 e che \texttt{Fido è un mammifero}, allora deduco che \texttt{Fido allatta}).\\
-L'apprendimento simbolico non neccessità di grandi quantità di dati per l'addestramento, ha un'alta trasparenza nelle decisioni (perché ogni ragionamento si può comprendere attraverso regole logiche) e ha limiti nella gestione di dati rumorosi o ambigui.\\
+L'apprendimento simbolico non necessita di grandi quantità di dati per l'addestramento, ha un'alta trasparenza nelle decisioni (perché ogni ragionamento si può comprendere attraverso regole logiche) e ha limiti nella gestione di dati rumorosi o ambigui.\\
 L'apprendimento simbolico si contrappone all'apprendimento statistico (ad esempio le reti neurali), 
 basato su correlazioni numeriche estratte dai dati. Quest'ultimo ha bisogno di grandi quantità di dati nell'apprendimento, sono delle blackbox (dato un input si ha un output, ma non si conosce il ragionamento dietro) e è buono nella gestione di dati rumorosi o ambigui.
 
 \subsection{Bontà del modello}
-Per valutare se il modello è buono per il problema si neccessità di conoscere i seguenti parametri.
+Per valutare se il modello è buono per il problema si necessità di conoscere i seguenti parametri.
 \begin{itemize}
     \item F1-macro     
     \item ROC-AUC    
@@ -162,9 +162,11 @@ Per valutare se il modello è buono per il problema si neccessità di conoscere 
     \item Positivi Falsi ($PF_i$) - pixel negativi ma predetti positivi;
     \item Negativi Falsi ($NF_i$) - pixel positivi ma predetti negativi.
 \end{itemize}
-Da qui possiamo calcolare:\\
+
+Da qui si riesce a calcolare le seguenti formule:
+
 \begin{itemize}
-    \item $Precision_i$:proporzione dei pixel classicati come piante e che rappresentano
+    \item $Precision_i$: proporzione dei pixel classificati come piante e che rappresentano
 effettivamente delle piante.
 \[
 Precision_i=\frac{PV_i}{PV_i+PF_i}
@@ -269,15 +271,15 @@ Possiamo visualizzare la tabella \ref{tab:dataset_farmacia} e \ref{tab:coppie_da
 \end{figure}
 \\Un albero decisionale serve a risolvere problemi di regressione e di classificazione \ref{fig:cluster}. Questo è una rappresentazione di una funzione
 che dato in input un vettore di valori $x_i$ da un valore di output (una decisione) $y_i$ 
-Ogni nodo interno all'albero corrisponde ad un attributo della tabella, mentre i nodi esterni (foglie) a delle decisioni ($y=SI$ $y=NO$). 
-I rami etichettati con degli ipotetitici valori dell'attributo (Es. \texttt{Antinfiammatorio}, \texttt{SI}, \texttt{NO},...). Per \texttt{...} intendiamo tutti gli altri 
+Ogni nodo interno all'albero corrisponde a un attributo della tabella, mentre i nodi esterni (foglie) a delle decisioni ($y=SI$ $y=NO$). 
+I rami etichettati con degli ipotetici valori dell'attributo (Es. \texttt{Antinfiammatorio}, \texttt{SI}, \texttt{NO},...). Per \texttt{...} si intendono tutti gli altri 
 elementi che non fanno parte di quella categoria e le diciture \texttt{Prob} e \texttt{Antibi} stanno per rispettivamente 
-Probiotico e Antibiotico. Questo albero in particolare come possiamo osservare viene usato per una classificazione binaria ($y=0$ o $y=1$)($y=SI$ $y=NO$), ma possiamo avere più classi ($y=0$, $y=1$, $y=2$) 
+Probiotico e Antibiotico. Questo albero in particolare come si può osservare viene usato per una classificazione binaria ($y=0$ o $y=1$)($y=SI$ $y=NO$), ma si possono anche avere più classi ($y=0$, $y=1$, $y=2$) 
 \subsection{Entropia}
 \label{subsec:entropia}
-Possiamo costruire un gran numero di alberi semplicemente cambiando attributi dell'albero. Per scegliere gli attributi e l'ordine di questi con cui costruire l'albero usiamo il concetto
+Si può costruire un gran numero di alberi semplicemente cambiando attributi dell'albero. Per scegliere gli attributi e l'ordine di questi con cui costruire l'albero si usa il concetto
 di guadagno di informazione \ref{subsec:guadagno_informativo}, definito in termini di entropia. L'entropia è la misura dell'incertezza di una variabile casuale.\\
-L'unita di misura dell'entropia in questo caso (dato che stiamo usando un computer (che comunica attraverso 0 o 1)) è il bit.
+L'unita di misura dell'entropia in questo caso (dato che si sta usando un computer (che comunica attraverso 0 o 1)) è il bit.
 
 \subsubsection{Entropia di una singola variabile casuale}
 L'entropia di una variabile casuale discreta $V$ con $k$ elementi è definita come:
@@ -305,19 +307,18 @@ Ad esempio
     P(v_k=TCTT)&=\frac{1}{2}\cdot\frac{1}{2}\cdot\frac{1}{2}\cdot\frac{1}{2}= \frac{1}{16}\\
     H(V)&=-\sum_{k=1}^{k=16} \frac{1}{16}\log_2 \frac{1}{16}= 4\text{bit}
 \end{align}
-Quindi per rappresentare un risultato o i risultati dei $k$ elementi della variabile aleatoria $V$ sono neccessari 4 bit.
+Quindi per rappresentare un risultato o i risultati dei $k$ elementi della variabile aleatoria $V$ sono necessari 4 bit.
+La probabilità di ottenere C o T è $\frac{1}{2}$ e da qui si può affermare che la probabilità di ottenere un qualsiasi lancio di moneta 4 volte ($P(v_k)$) è esattamente $\left(\frac{1}{2}\right)^4$.\\
 
-La probabilità di ottenere C o T è $\frac{1}{2}$ e da qui possiamo affermare che la probabilità di ottenere un qualsiasi lancio di moneta 4 volte ($P(v_k)$) è esattamente $\left(\frac{1}{2}\right)^4$.\\
 
-
-Ora per esempio poniamo di avere una moneta truccata che dia T il $\frac{2}{3}$ dei lanci e C il restante $\frac{1}{3}$.
+Ora, per esempio, si pone di avere una moneta truccata che dia T il $\frac{2}{3}$ dei lanci e C il restante $\frac{1}{3}$.
 Di conseguenza
 \begin{align}
     P(v_k=TCTT)&=\frac{2}{3}\cdot\frac{1}{3}\cdot\frac{2}{3}\cdot\frac{1}{3}= \frac{8}{81}\\
     P(v_k=TCCT)&=\frac{2}{3}\cdot\frac{1}{3}\cdot\frac{2}{3}\cdot\frac{1}{3}= \frac{4}{81}\\
     P(v_k=TCCC)&=\frac{2}{3}\cdot\frac{1}{3}\cdot\frac{2}{3}\cdot\frac{1}{3}= \frac{2}{81}\\
     P(v_k=TTTT)&=\frac{2}{3}\cdot\frac{1}{3}\cdot\frac{2}{3}\cdot\frac{1}{3}= \frac{16}{81}\\
-    P(v_k=CCCC)&=\frac{2}{3}\cdot\frac{1}{3}\cdot\frac{2}{3}\cdot\frac{1}{3}= \frac{1}{81}\\
+    P(v_k=CCCC)&=\frac{2}{3}\cdot\frac{1}{3}\cdot\frac{2}{3}\cdot\frac{1}{3}= \frac{1}{81}
 \end{align}
 Per la sequenza TCTT, che contiene una sola C, si ottengono in totale 4 configurazioni distinte 
 (ad esempio TCTT,CTTT,TTCT,TTTC). Analogamente, le sequenze con 2 C sono 4, quelle con 3 C sono anch'esse 4, 
@@ -332,7 +333,7 @@ Quindi
 \end{align*}
 Di conseguenza ci servono meno bit di informazione per rappresentare questo caso rispetto il precedente
 \subsubsection{Entropia Congiunta}
-Prese 2 variabili aleatorie discrete $V$ e $G$ è l'entropia della loro coppia $(V,G)$.
+Prese 2 variabili aleatorie discrete $V$ e $G$, l'entropia della loro coppia $(V,G)$ è:
 %Poniamo qui un grafico di 2 insiemi
 \[
 H(V,G)=-\sum_{v,g}P(v_k,g_k)\log_2P(v_k,g_k)
@@ -361,10 +362,10 @@ H(V,G)=-\sum_{v,g}P(v_k,g_k)\log_2P(v_k,g_k)
 \end{figure}
 Esempio: Consideriamo 2 variabili casuali binarie:
 \begin{itemize}
-    \item $V$ esito del primo lancio (Testa o Cronce)
+    \item $V$ esito del primo lancio (Testa o Croce)
     \item $G$ esito del secondo lancio (Testa o Croce)
 \end{itemize}
-Poniamo che la moneta sia equa e indipendente.
+Si pone che la moneta sia equa e indipendente.
 Quindi:
 \begin{align}
     V&=\{T,C\}\\
@@ -372,20 +373,20 @@ Quindi:
     P(V)=P(G)&=\left(\frac{1}{2},\frac{1}{2}\right)\\
     P(v_k,g_k)&=\frac{1}{2}\cdot\frac{1}{2}=\frac{1}{4}
 \end{align}
-Dato che la moneta è equa e quindi la probabilità di avere T o C non cambia di conseguenza l'entropia congiunta è:
+Dato che la moneta è equa e dunque la probabilità di avere T o C non cambia; l'entropia congiunta è:
 \begin{align}
     H(V,G)&=-\sum_{v,g}P(v_k,g_k)\log_2P(v_k,g_k)\\
     &=-\left( 4\cdot\left( \frac{1}{4}\log_2\frac{1}{4}\right)\right)=2\text{bit}
 \end{align}
 \subsubsection{Entropia Condizionata}
 L'entropia condizionale $H(V|G)$ è la quantità di informazione necessaria per descrivere il valore di una variabile aleatoria 
-$V$ noto il valore di un'altra variabile aleatoria $G$
+$V$ noto il valore di un'altra variabile aleatoria $G$.
 $H(V|G)$ è definita come
 \begin{align}
     H(V|G)&=\mathbb{E}_G[H(V|g)]=\sum_{v,g}P(v_k,g_k)\log\frac{P(g_k)}{P(v_k,g_k)}\\
     &=H(V,G)-H(G)
 \end{align}
-Poniamo che Dobbiamo trovare l'entropia $H(V|G)$ dell'esempio precedente:
+Si pone che si debba trovare l'entropia $H(V|G)$ dell'esempio precedente:
 \begin{align}
     H(V,G)&=2\text{bit}\\
     H(G)&=-\left(2\cdot \left( \frac{1}{2}\log_2\frac{1}{2}\right)\right)=1\text{bit}\\
@@ -397,7 +398,7 @@ Il guadagno informativo $IG$ serve per capire che attributo(o variabile aleatori
 \[
 IG(G|V)=H(G)-H(G|V)
 \]
-Per esempio nel caso precendente si avrebbe
+Per esempio nel caso precedente si avrebbe
 \[
 IG(G|V)=H(G)-H(G|V)=1-1=0\text{bit}
 \] 
@@ -417,7 +418,7 @@ I risultati $u_i$ di questi vengono valutati per l'intera Foresta come una media
 maggioranza se invece si tratta di un problema di classificazione.
 \subsection{Regressione Lineare}
 \label{subsec:regressione_lineare}
-La Regressione Lineare viene definita come un adattamento ad una funzione lineare dei dati (punti).
+La Regressione Lineare viene definita come un adattamento a una funzione lineare dei dati (punti).
 
 \begin{figure}[H]
     \centering
@@ -542,7 +543,7 @@ La Regressione Lineare viene definita come un adattamento ad una funzione linear
 
 \caption{A sinistra una Regressione Lineare Univariata (Retta). A destra una approssimazione NON Lineare (Curva lisciata)}
 \end{figure}
-Per chiarezza, la curva di regressione è stata creata interpolando solo 5 punti dall'insieme del dataset presi a intervalli regolari. Questo non altera la tendenza poichè la funzione tende a generalizzare bene l'andamento dei punti.\\
+Per chiarezza, la curva di regressione \ref{fig:grafico regressione} è stata creata interpolando solo 5 punti dall'insieme del dataset presi a intervalli regolari. Questo non altera la tendenza poiché la funzione tende a generalizzare bene l'andamento dei punti.\\
 Dati un insieme di $i$ punti con 2 variabili $(x,y)$,  per esempio
 $(x=\text{Larghezza},y=\text{Lunghezza})$ la regressione è costruire una funzione che adatta l'andamento
 dei punti. In questa tesi si affronterà la Regressione Lineare Univariata. Nella Regressione Lineare Univariata la funzione che adatta i punti è una retta.
@@ -550,7 +551,7 @@ La retta viene definita tramite la formula del tipo
 \[
 y=mx+q
 \] 
-$m$ indica l'inclinazione della retta, mentre $q$ è lo spostamento di quella retta sull'asse delle ordinate.
+Ove $m$ indica l'inclinazione della retta, mentre $q$ è lo spostamento di quella retta sull'asse delle ordinate.
 Si vuole trovare la funzione $f$ che approssimi la sequenza dei vari punti.
 Quindi date $i$ coppie $(x_i,y_i)$ questo problema si risolve utilizzando il Metodo Dei Minimi Quadrati. 
 \begin{align}
@@ -569,7 +570,7 @@ Ulteriori approfondimenti sul Machine Learning si possono affrontare nel libro \
 
 \subsection{Normalizzazione e filtratura di un dataset}
 \label{subsec:normalizzazione_dataset}
-Per normalizzazione di un dataset si intende dare a un insieme di dati un range garantito. Per esempio si vuole che i 
+Per normalizzazione di un dataset si intende dare a un insieme di dati un range garantito. 
 Per farlo si usa la seguente formula: dato un insieme di dati $X$ di numero $i$, 
 \[
     x_i=\frac{x_i-\min(X)}{\max(X)-\min(X)}
@@ -619,7 +620,7 @@ dei valori dei pixel di colore rosso e si pongono i seguenti valori:
     a_{31}=0.35;a_{32}=0.25;a_{33}=0.05;
 \end{align}
 
-Di conseguenza nel pixel $a_{22}$ avrò la media effettuata da:
+Di conseguenza nel pixel $a_{22}$ si avrà la media effettuata da:
 \begin{align}
     \mathrm{media}_{3\times3,\mathrm{rosso}}(a_{22})&=\frac{1}{i\cdot j}\cdot\sum_i\sum_j a_{ij}\\
     &=\frac{1}{3\cdot3}\cdot \big( \left( 0.75+0.75+0.75\right)\\
@@ -637,14 +638,14 @@ Di conseguenza la media nel pixel $a_{11}$ sarà
     &+ \left( 0.75+0.75+0.75\right) + \left( 0.45+0.45+0.25\right)\big)\\
     &=0.6278
 \end{align}
-Nella figura la tecnica di fare una media3x3 o 7x7 si rappresenta con una sfocatura \ref{fig:immagine mean3x3}. Si mostrano degli esempi
+Nella figura la tecnica di fare una media3x3 o 7x7 si rappresenta con una sfocatura \ref{fig:immagine mean3x3}. Si mostrano degli esempi.
 %qua ci metti un immagine che mostra la sfocatura
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \begin{minipage}{0.30\textwidth}
     \includegraphics[width=0.7\textwidth]{capitoli/capitolo1/images/rgb.png}
-    \caption{Rappresentazione della immagine rosso,verde,blu}
+    \caption{Rappresentazione della immagine rosso, verde, blu}
     \label{fig:immagine rgb}
     \end{minipage}
     \hfil 
@@ -689,7 +690,7 @@ La deviazione standard per il pixel $a_{22}$ (in questo caso di colore rosso) è
 \end{align}
 Anche in questo caso nel caso si voglia calcolare 
 $a_{11}$ i valori vengono specchiati come 
-nel caso precendente, quindi
+nel caso precedente, quindi
 \begin{align}
 \mathrm{devstand}_{3\times3,\mathrm{rosso}}(a_{11})
 &=\sqrt{\frac{1}{i\cdot j} \sum_{i}\sum_{j}  \left( x_{ij}-\mathrm{media}_{3\times3,\mathrm{rosso}}(a_{11})) \right)^2}\\
@@ -706,16 +707,16 @@ nel caso precendente, quindi
 &= \sqrt{0.0328} \approx 0.1812
 \end{align}
 La rappresentazione visuale della deviazione standard sul rosso su un'immagine si rappresenta come un 
-accentuamento del cambio di internsità del colore \ref{fig:immagine std}. Si visualizzano un immagine per esempio:
+accentuamento del cambio di intensità del colore \ref{fig:immagine std}. Si visualizza un immagine per esempio.
 %qua ci si mette la figura std
 
     
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \begin{minipage}{0.45\textwidth}
     \includegraphics[width=0.7\textwidth]{capitoli/capitolo1/images/RED.png}
     \caption{Rappresentazione del colore rosso in modo binario (bianco/nero)}
-    \label{fig:immagine red}
+    \label{fig:immagine red2}
     \end{minipage}
     \hfil \hfil \hfil
     \begin{minipage}{0.45\textwidth}
