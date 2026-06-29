@@ -185,8 +185,8 @@ Si è andati a creare delle features derivate: media3x3, media7x7, std3x3 e std7
 Per costruire il dataset di addestramento, sono stati estratti i pixel all'interno delle bbox annotate per classe. I campioni così ottenuti vengono randomizzati per evitare correlazioni dovute all'ordine dei pixel.
 Infine si allena la foresta.
 Per entrambi i modelli è stato impostato un limite
-di 100 alberi per Foresta (infatti indipendentemente dal superamento di questa soglia la bontà del modello non aumentava) e non è stato impostato un vincolo 
-in profondità per gli alberi decisionali. Infatti non vi erano grossi differenze tra le profondità degli alberi della foresta e la loro performance.
+di 70 alberi per Foresta (infatti indipendentemente dal superamento di questa soglia la bontà del modello non aumentava) e ed è stato impostato un vincolo 
+in profondità per gli alberi decisionali di 23. Infatti non vi erano grossi differenze tra le profondità degli alberi della foresta e la loro performance.
 Il dataset viene suddiviso in training set $(80\%)$, mentre
 il restante è il test set $(20\%)$. La foresta casuale viene addestrata sul training, 
 mentre i suoi risultati vengono testati sul test set per valutare la bontà del modello.
